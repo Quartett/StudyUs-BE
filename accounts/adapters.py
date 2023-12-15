@@ -6,11 +6,8 @@ User = get_user_model()
 class CustomAccountAdapter(DefaultAccountAdapter):
 
     def save_user(self, request, user, form, commit=True):
-        # fields = ['profile_image', 'nickname', 'email', 'date_joined', 'last_login', 'is_superuser', 'is_admin', 'is_staff', 'is_active']
         data = form.cleaned_data
-        # 기본 저장 필드: email
         user = super().save_user(request, user, form, False)
-        # 추가 저장 필드: profile_image, nickname, date_joined, last_login, is_superuser, is_admin, is_staff, is_active
         profile_image = data.get('profile_image')
         nickname = data.get('nickname')
         date_joined = data.get('date_joined')
