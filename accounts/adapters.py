@@ -16,21 +16,30 @@ class CustomAccountAdapter(DefaultAccountAdapter):
         is_admin = data.get('is_admin')
         is_staff = data.get('is_staff')
         is_active = data.get('is_active')
+        
         if profile_image:
             user.profile_image = profile_image
+            
         if nickname:
             user.nickname = nickname
+            
         if date_joined:
             user.date_joined = date_joined
+            
         if last_login:
             user.last_login = last_login
+            
         if is_superuser:
             user.is_superuser = is_superuser
+            
         if is_admin:
             user.is_admin = is_admin
+            
         if is_staff:
             user.is_staff = is_staff
+            
         if is_active:
             user.is_active = is_active            
+            
         user.save()
         return user

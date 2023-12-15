@@ -37,6 +37,7 @@ class RegisterSerializer(RestAuthRegisterSerializer):
         user.save()
         return user
 
+
 class LoginSerializer(RestAuthLoginSerializer):
     username = None
     email = serializers.EmailField(required=True)
@@ -49,7 +50,9 @@ class LoginSerializer(RestAuthLoginSerializer):
         
         
 class UserDetailsSerializer(RestAuthUserDetailsSerializer):
+    
     username = None
+    
     class Meta:
         model = User
         fields = ('profile_image', 'nickname', 'email')
