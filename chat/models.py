@@ -1,5 +1,5 @@
 from django.db import models
-from study.models import Study
+from django.contrib.auth.models import User
 
 class ChatRoom(models.Model):
     study = models.OneToOneField(Study, on_delete=models.CASCADE, related_name='chat_room')
@@ -7,6 +7,6 @@ class ChatRoom(models.Model):
 
 class Chat(models.Model):
     chat_room = models.ForeignKey(ChatRoom, on_delete=models.CASCADE, related_name='chats')
-    user = models.ForeignKey('accounts.User', on_delete=models.CASCADE, related_name='users')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='users')
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
