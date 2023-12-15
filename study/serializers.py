@@ -1,14 +1,17 @@
 from rest_framework import serializers
-from .models import Comment, Post, Like
+from .models import Comment
 
 class CommentSerializer(serializers.ModelSerializer):
-    author_username = serializers.SerializerMethodField() # 뎃글에 대한 유저의 이름을 보여주기 위해 추가
-    reply = serializers.SerializerMethodField() # 댓글에 대한 답글을 보여주기 위해 추가
+    # 댓글에 대한 유저의 이름을 보여주기 위해 추가
+    author_username = serializers.SerializerMethodField()
+    # 댓글에 대한 답글을 보여주기 위해 추가
+    reply = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
         fields = ['id', 'parent', 'post', 'author', 'author_username', 'text', 'created_at', 'reply']
         read_only_fields = ['author']
+
 
     def get_author_username(self, obj):
         '''
@@ -25,7 +28,6 @@ class CommentSerializer(serializers.ModelSerializer):
         if obj.reply:
             return CommentSerializer(obj.reply, many=True).data
         return None
-
 
     def create(self, validated_data):
         validated_data['author'] = self.context['request'].user
