@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
-from .models import Post, Comment
+from .models import Comment
 from .serializers import CommentSerializer
 
 

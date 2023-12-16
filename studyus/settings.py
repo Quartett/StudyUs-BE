@@ -1,6 +1,7 @@
 from pathlib import Path
 import environ
 import os
+from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -40,6 +41,7 @@ INSTALLED_APPS = [
     "dj_rest_auth.registration",
     "allauth",
     "allauth.account",
+    "allauth.socialaccount",
     "drf_spectacular",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -213,3 +215,10 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
+OLD_PASSWORD_FIELD_ENABLED = True
+
+SIMPLE_JWT = {
+    "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60), 
+    # 편의상 access token 유효기간 개발 단계에서 60분으로 설정 추후 5분으로 수정 필요
+    "REFRESH_TOKEN_LIFETIME": timedelta(days=1),
+}
