@@ -9,7 +9,7 @@ class Category(models.Model):
 
 class StudyGroup(models.Model):
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='study_id') 
-    image = models.ImageField(upload_to = 'study_images/', blank=True)
+    thumnail = models.ImageField(upload_to = 'study_images/', blank=True)
     title = models.TextField()
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
@@ -17,7 +17,7 @@ class StudyGroup(models.Model):
     study_start_at = models.DateTimeField(auto_now_add=True)
     study_end_at = models.DateTimeField(auto_now_add=True)
     max_members = models.IntegerField()
-    category_id = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category_id', blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True)
 
 
 class StudyMember():
