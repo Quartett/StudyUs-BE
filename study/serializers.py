@@ -1,5 +1,17 @@
 from rest_framework import serializers
-from .models import Comment
+from .models import Comment, StudyGroup, StudyMember
+
+
+class StudyGroupSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = StudyGroup
+        fields = ['id', 'author', 'image', 'title', 'category_id', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members']
+        read_only_fields = ['author']
+
+    def create(self, validated_data):
+        validated_data['author'] = self.context['request'].user
+        return super().create(validated_data)
+
 
 class CommentSerializer(serializers.ModelSerializer):
     # 댓글에 대한 유저의 이름을 보여주기 위해 추가
