@@ -29,7 +29,7 @@ class StudyMember():
 
 
 class Comment(models.Model):
-    post = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='comments')
+    study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='comments')
     parent = models.ForeignKey('self', on_delete=models.CASCADE, related_name='reply', null=True)
     text = models.TextField()
