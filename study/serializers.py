@@ -3,9 +3,10 @@ from .models import Comment, StudyGroup, StudyMember
 
 
 class StudyGroupSerializer(serializers.ModelSerializer):
+    
     class Meta:
         model = StudyGroup
-        fields = ['id', 'author', 'image', 'title', 'category_id', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members']
+        fields = ['id', 'author', 'image', 'title', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members']
         read_only_fields = ['author']
 
     def create(self, validated_data):
