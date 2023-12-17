@@ -3,15 +3,19 @@ from .models import Comment, StudyGroup, StudyMember
 
 
 class StudyGroupSerializer(serializers.ModelSerializer):
+    chat_room_id = serializers.SerializerMethodField()
     
     class Meta:
         model = StudyGroup
-        fields = ['id', 'author', 'image', 'title', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members']
+        fields = ['id', 'author', 'thumbnail', 'title', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'chat_room_id']
         read_only_fields = ['author']
 
     def create(self, validated_data):
         validated_data['author'] = self.context['request'].user
         return super().create(validated_data)
+    
+    def get_chat_room_id(self, obj):
+        return obj.chat_room.id
 
 
 class CommentSerializer(serializers.ModelSerializer):
