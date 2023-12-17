@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
 from .models import StudyGroup, Comment
+from chat.models import ChatRoom
 from .serializers import CommentSerializer, StudyGroupSerializer
 
 
@@ -15,6 +16,7 @@ class StudygroupCreateView(generics.CreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+        ChatRoom.objects.create(study_group=serializer.instance)
 
 
 class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
