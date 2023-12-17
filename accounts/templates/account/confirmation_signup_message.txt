@@ -1,0 +1,5 @@
+To confirm your email address, click on the link below:
+
+{% autoescape off %}
+{{ protocol }}://{{ domain }}{% url 'account_confirm_email' key=confirmation.key %}
+{% endautoescape %}
