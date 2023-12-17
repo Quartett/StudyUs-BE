@@ -5,7 +5,7 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class ChatRoom(models.Model):
-    study = models.OneToOneField(StudyGroup, on_delete=models.CASCADE, related_name='chat_room')
+    study_group = models.OneToOneField(StudyGroup, on_delete=models.CASCADE, related_name='chat_room')
 
 
 class Chat(models.Model):

@@ -17,13 +17,13 @@ class StudyGroup(models.Model):
     study_start_at = models.DateTimeField(auto_now_add=True)
     study_end_at = models.DateTimeField(auto_now_add=True)
     max_members = models.IntegerField()
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True)
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
 
 
 class StudyMember(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='studygroup') 
-    studygroup = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='studygroup')
-    # role = models.BooleanField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+    study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='study_group')
+    role = models.CharField(max_length=10)
 
 
 class Comment(models.Model):
@@ -34,4 +34,4 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return f'{self.author.username} - {self.text}'
+        return f'작성자:{self.author.nickname} - {self.text}'

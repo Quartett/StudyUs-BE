@@ -10,7 +10,8 @@ urlpatterns = [
     path('api/schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'), # 테스트할 수 있는 UI
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'), # API 문서화를 위한 UI
     path('accounts/', include('accounts.urls')),
-    path('study/', include('study.urls')),
+    path('accounts/join/', include('dj_rest_auth.registration.urls')),
+    path('study/', include('study.urls'), name='study'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

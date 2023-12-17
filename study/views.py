@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
-from .models import StudyGroup, Comment, Category
+from .models import StudyGroup, Comment
+from chat.models import ChatRoom
 from .serializers import CommentSerializer, StudyGroupSerializer
 
 
@@ -15,6 +16,7 @@ class StudygroupCreateView(generics.CreateAPIView):
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
+        ChatRoom.objects.create(study_group=serializer.instance)
 
 
 class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
@@ -46,4 +48,14 @@ class CommentListView(generics.ListAPIView):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return self.queryset.filter(post_id=self.kwargs['post_id'])
+        return self.queryset.filter(study_group_id=self.kwargs['study_group_id'])
+
+
+class CommentUpdateView(generics.UpdateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class CommentDestroyView(generics.DestroyAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
