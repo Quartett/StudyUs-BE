@@ -32,25 +32,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
         비동기로 그룹 모두에게 전송
         '''
         text_data_json = json.loads(text_data)
-        # user = self.scope["user"] _ {이 코드는 User 테이블이 완성되면 활용}
+        nickname = self.scope['user'].nickname
+        # profile_image = self.scope['user'].profile_image.url | 'https://source.unsplash.com/random/300×300' // 프로필 기본설정 완료 되면 주석 풀 것
         room_id = text_data_json["room_id"]
         message = text_data_json["message"]
         await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "message": message}
+            self.room_group_name, {"type": "chat.message", "message": message, "nickname": nickname} # 추후 profile_image 추가
         )
         await self.save_message(room_id, message)
+
+    async def chat_message(self, event):
+        message = event["message"]
+        await self.send(text_data=json.dumps({"message": message}))
 
     @database_sync_to_async
     def save_message(self, room_id, message):
         '''
         전송한 채팅을 DB에 비동기로 저장
         '''
-        Chat.objects.create(room=ChatRoom.objects.get(id=room_id), content=message)
+        Chat.objects.create(chat_room=ChatRoom.objects.get(study_group__id=room_id), content=message, user=self.scope["user"])
 
     @database_sync_to_async
     def get_chat_history(self):
         '''
         비동기로 이전 대화기록이 있는지 확인해서 list를 반환
         '''
-        chat_history = Chat.objects.filter(room__id=self.room_name)
+        chat_history = Chat.objects.filter(chat_room__id=self.room_name)
         return list(chat_history)
