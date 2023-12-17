@@ -8,7 +8,7 @@ User = get_user_model()
 
 class RegisterSerializer(RestAuthRegisterSerializer):
     username = None
-    profile_image = serializers.ImageField(required=False)
+    profile_image = serializers.ImageField(default='profile_images/default_profile_image.png')
     nickname = serializers.CharField(required=False)
     email = serializers.EmailField(required=True)
     password1 = serializers.CharField(write_only=True, style={'input_type': 'password'})
@@ -31,9 +31,8 @@ class RegisterSerializer(RestAuthRegisterSerializer):
     
     def save(self, request):
         user = super().save(request)
-        if user:
-            user.profile_image = self.data.get('profile_image')
-            user.nickname = self.data.get('nickname')
+        user.profile_image = self.validated_data.get('profile_image')
+        user.nickname = self.validated_data.get('nickname')
         user.save()
         return user
 

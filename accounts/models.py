@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.contrib.auth.base_user import BaseUserManager
+from django.utils.text import slugify
 
 class StudyUsUserManager(BaseUserManager):
     
@@ -18,7 +19,7 @@ class StudyUsUserManager(BaseUserManager):
     
     def create_superuser(self, email, password):
         user = self.model(
-            email = self.normalize_email(email)
+            email = self.normalize_email(email),
         )
         user.is_superuser = True
         user.is_admin = True
@@ -29,8 +30,8 @@ class StudyUsUserManager(BaseUserManager):
 
 
 class StudyUsUser(AbstractBaseUser, PermissionsMixin):
-    profile_image = models.ImageField(upload_to='profile_images/', blank=True)
-    nickname = models.CharField(max_length=20, blank=True)
+    profile_image = models.ImageField(upload_to='profile_images/', default='profile_images/default_profile_image.png')
+    nickname = models.CharField(max_length=20, unique=True, blank=True) 
     email = models.EmailField(max_length=255, unique=True)
     
     USERNAME_FIELD = 'email'
@@ -54,3 +55,11 @@ class StudyUsUser(AbstractBaseUser, PermissionsMixin):
     
     def has_module_perms(self, app_label):
         return self.is_superuser
+    
+    def save(self, *args, **kwargs):
+        '''
+        닉네임이 없을 경우 이메일의 앞부분을 닉네임으로 사용
+        '''
+        if not self.nickname and self.email:
+            self.nickname = slugify(self.email.split('@')[0])[:20]
+        super().save(*args, **kwargs)
