@@ -16,10 +16,9 @@ class StudyUsUserManager(BaseUserManager):
         user.save(using=self._db)
         return user
     
-    def create_superuser(self, email, nickname, password):
+    def create_superuser(self, email, password):
         user = self.model(
-            email = self.normalize_email(email),
-            nickname = nickname
+            email = self.normalize_email(email)
         )
         user.is_superuser = True
         user.is_admin = True
