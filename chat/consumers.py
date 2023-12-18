@@ -2,6 +2,10 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Chat, ChatRoom
+from rest_framework_simplejwt.tokens import AccessToken
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -17,8 +21,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
         await self.accept()
         chat_history = await self.get_chat_history()
         for chat in chat_history:
-            await self.send(text_data=json.dumps({"message": chat.content}))
-
+            await self.send(text_data=json.dumps({
+                "message": chat.content, 
+                "nickname": await database_sync_to_async(lambda: chat.user.nickname)(),
+                "profile_image": await database_sync_to_async(lambda: chat.user.profile_image.url)(),    
+            }))
+            
     async def disconnect(self, close_code):
         '''
         소켓 연결이 끊어졌을 때
@@ -32,25 +40,30 @@ class ChatConsumer(AsyncWebsocketConsumer):
         비동기로 그룹 모두에게 전송
         '''
         text_data_json = json.loads(text_data)
-        nickname = self.scope['user'].nickname
-        # profile_image = self.scope['user'].profile_image.url | 'https://source.unsplash.com/random/300×300' // 프로필 기본설정 완료 되면 주석 풀 것
-        room_id = text_data_json["room_id"]
         message = text_data_json["message"]
+        room_id = text_data_json["room_id"]
+        user_id = text_data_json['user_id']
+        nickname = await database_sync_to_async(lambda: User.objects.get(id=user_id).nickname)()
+        profile_image = await database_sync_to_async(lambda: User.objects.get(id=user_id).profile_image.url)()
         await self.channel_layer.group_send(
-            self.room_group_name, {"type": "chat.message", "message": message, "nickname": nickname} # 추후 profile_image 추가
+            self.room_group_name, {"type": "chat.message", "message": message, "room_id": room_id, "nickname": nickname, "profile_image": profile_image, "user_id": user_id}
         )
-        await self.save_message(room_id, message)
+        await self.save_message(room_id, message, user_id)
 
     async def chat_message(self, event):
         message = event["message"]
-        await self.send(text_data=json.dumps({"message": message}))
+        await self.send(text_data=json.dumps({
+            "message": message,
+            "nickname": event["nickname"],
+            "profile_image": event["profile_image"],
+        }))
 
     @database_sync_to_async
-    def save_message(self, room_id, message):
+    def save_message(self, room_id, message, user_id):
         '''
         전송한 채팅을 DB에 비동기로 저장
         '''
-        Chat.objects.create(chat_room=ChatRoom.objects.get(study_group__id=room_id), content=message, user=self.scope["user"])
+        Chat.objects.create(chat_room=ChatRoom.objects.get(study_group__id=room_id), content=message, user=User.objects.get(id=user_id))
 
     @database_sync_to_async
     def get_chat_history(self):

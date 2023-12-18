@@ -40,7 +40,7 @@ class StudyGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudyGroup
-        fields = ['id', 'author', 'thumbnail', 'title', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'chat_room_id']
+        fields = ['id', 'author', 'thumbnail', 'title', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id']
         read_only_fields = ['author']
 
 
@@ -50,6 +50,7 @@ class StudyGroupSerializer(serializers.ModelSerializer):
 
     def get_chat_room_id(self, obj):
         return obj.chat_room.id
+
 
 class MemberSerializer(serializers.ModelSerializer):
     user_nickname = serializers.SerializerMethodField()

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ko-KR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>스터디 리스트</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+</head>
+<body>
+    
+    <div class="container-sm">
+        <h2 class="mt-5">스터디 생성</h2>
+        <form class="create-form" id="createForm">
+            <input type="text" id="title" placeholder="스터디명" class="form-control m-3" required>
+            <input type="text" id="content" placeholder="스터디 소개" class="form-control m-3" required>
+            <input type="number" id="max_members" placeholder="인원수" class="form-control m-3" required>
+            <button type="submit" class="btn btn-primary m-3">생성하기</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+<script>
+    document.getElementById('createForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const title = document.getElementById('title').value;
+            const content = document.getElementById('content').value;
+            const max_members = document.getElementById('max_members').value;
+
+            const access_token = localStorage.getItem('access_token');
+
+            // http://13.115.106.99/
+            fetch('http://127.0.0.1:8000/study/create/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
+                },
+                body: JSON.stringify({ title, content, max_members })
+            })
+            .then(response => response.json())
+            .then(data => {
+                location.href = 'study_detail.html?id=' + data.id
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        });
+</script>
