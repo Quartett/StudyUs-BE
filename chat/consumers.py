@@ -2,6 +2,10 @@ import json
 from channels.generic.websocket import AsyncWebsocketConsumer
 from channels.db import database_sync_to_async
 from .models import Chat, ChatRoom
+from rest_framework_simplejwt.tokens import AccessToken
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class ChatConsumer(AsyncWebsocketConsumer):
     async def connect(self):
@@ -11,13 +15,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
         3) 비동기로 채널 계층에 그룹을 생성함
         4) 해당 그룹 ID에 이전 대화 기록이 있다면 반환
         '''
-        self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
-        self.room_group_name = f"chat_{self.room_name}"
-        await self.channel_layer.group_add(self.room_group_name, self.channel_name)
-        await self.accept()
-        chat_history = await self.get_chat_history()
-        for chat in chat_history:
-            await self.send(text_data=json.dumps({"message": chat.content}))
+        try:
+            self.room_name = self.scope["url_route"]["kwargs"]["room_name"]
+            self.room_group_name = f"chat_{self.room_name}"
+            await self.channel_layer.group_add(self.room_group_name, self.channel_name)
+            await self.accept()
+            chat_history = await self.get_chat_history()
+            for chat in chat_history:
+                await self.send(text_data=json.dumps({"message": chat.content, "nickname": await database_sync_to_async(lambda: chat.user.nickname)()}))
+        except:
+            print('여기서 연결이 안되는지 확인,, 근데 왜 발견이 안되지 ㅠㅠ')
+            await self.close()
 
     async def disconnect(self, close_code):
         '''
@@ -43,7 +51,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
     async def chat_message(self, event):
         message = event["message"]
-        await self.send(text_data=json.dumps({"message": message}))
+        await self.send(text_data=json.dumps({"message": message, "nickname": event["nickname"]}))
 
     @database_sync_to_async
     def save_message(self, room_id, message):
