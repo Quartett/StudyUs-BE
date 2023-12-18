@@ -1,6 +1,8 @@
 from django.db import models
-from accounts.models import StudyUsUser
 from study.models import StudyGroup
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 class ChatRoom(models.Model):
     study = models.OneToOneField(StudyGroup, on_delete=models.CASCADE, related_name='chat_room')
