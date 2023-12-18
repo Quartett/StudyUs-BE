@@ -51,6 +51,7 @@ class StudyGroupSerializer(serializers.ModelSerializer):
     def get_chat_room_id(self, obj):
         return obj.chat_room.id
 
+
 class MemberSerializer(serializers.ModelSerializer):
     user_nickname = serializers.SerializerMethodField()
 
