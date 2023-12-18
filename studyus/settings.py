@@ -243,22 +243,3 @@ ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
 EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account/confirmation_signup_message.txt'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[studyus]'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
-    },
-    'django.channels': {
-        'handlers': ['console'],
-        'level': 'DEBUG',
-        'propagate': True,
-    },
-}
