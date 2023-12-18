@@ -18,7 +18,7 @@
     </div>
 
     <div class="container-sm mt-3">
-        <textarea id="chat-log" rows="10" class="form-control" style="resize: none;" readonly></textarea><br>
+        <div id="chat-log" rows="10" class="form-control" style="resize: none;" readonly></div><br>
         <input id="chat-message-input" type="text" size="100" class="form-control"><br>
         <input id="chat-message-submit" type="button" value="Send" class="btn btn-primary">
     </div>
@@ -30,8 +30,7 @@
     const studyInfo = document.querySelector('#studyInfo');
     const accessToken = localStorage.getItem('access_token');
     const id = location.search.split('=')[1];
-    const nickname = getUserNicknameFromToken(accessToken) | 'Anonymous';
-
+    const user_id = getUserIdFromToken(accessToken);
 
     // http://13.115.106.99/
     fetch(`http://127.0.0.1:8000/study/${id}/`, {
@@ -57,17 +56,22 @@
     
     function setChatSocket(chatRoomId) {
         const chatSocket = new WebSocket(
-                'ws://'
-                + '127.0.0.1:8000'
-                + '/ws/chat/'
-                + chatRoomId
-                + '/',
-                ['ws-token', accessToken]
+            'ws://'
+            + '127.0.0.1:8000'
+            + '/ws/chat/'
+            + chatRoomId
+            + '/',
         );
     
         chatSocket.onmessage = function(e) {
                 const data = JSON.parse(e.data);
-                document.querySelector('#chat-log').value += (data.nickname + " : " + data.message + '\n');
+                document.querySelector('#chat-log').innerHTML += `
+                    <div>
+                        <img src="http://127.0.0.1:8000${data.profile_image}" style="width: 50px; height: 50px; border-radius: 50%;">
+                        <strong>${data.nickname}</strong>
+                        <p>${data.message}</p>
+                    </div> 
+                `;
         };
     
         chatSocket.onclose = function(e) {
@@ -80,10 +84,8 @@
     
         chatSocket.onerror = function(e) {
                 console.error('Chat socket error');
-                console.error(e)
         };
-    
-    
+
         document.querySelector('#chat-message-input').focus();
         document.querySelector('#chat-message-input').onkeyup = function(e) {
             if (e.key === 'Enter') {  // enter, return
@@ -102,20 +104,43 @@
             chatSocket.send(JSON.stringify({
                 'message': message,
                 'room_id': id,
-                'nickname': nickname
+                'user_id': user_id
             }));
             messageInputDom.value = '';
         };  
     }
 
     function getUserNicknameFromToken(token) {
-            try {
-                const base64Url = token.split('.')[1];
-                const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-                const payload = JSON.parse(atob(base64));
-                return payload.nickname;  // 토큰의 payload에서 user_id 필드 추출
-            } catch (error) {
-                return null;
-            }
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(atob(base64));
+            return payload.nickname;
+        } catch (error) {
+            return null;
         }
+    }
+
+    function getUserProfileImageFromToken(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(atob(base64));
+            console.log(payload)
+            return payload.profile_image;
+        } catch (error) {
+            return null;
+        }
+    }
+
+    function getUserIdFromToken(token) {
+        try {
+            const base64Url = token.split('.')[1];
+            const base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+            const payload = JSON.parse(atob(base64));
+            return payload.user_id;
+        } catch (error) {
+            return null;
+        }
+    }
 </script>
