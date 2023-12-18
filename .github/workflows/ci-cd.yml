@@ -1,0 +1,50 @@
+name: StudyUs CI/CD
+
+on:
+  push:
+    branches: [ "dev" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 체크아웃 레포지토리
+        uses: actions/checkout@v3
+
+      - name: 파이썬 설정
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.12'
+
+      - name: 의존성 설치
+        run: |
+          pip install --upgrade pip
+          pip install -r requirements.txt
+          
+      - name: 서버 배포
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          password: ${{ secrets.SERVER_PASSWORD }}
+          script: |
+            set -e
+            cd /home/ubuntu/dev/StudyUs-BE
+            git pull origin dev
+
+            echo "DEBUG='${{ secrets.DEBUG }}'" >> ./.env.prod
+            echo "SECRET_KEY=\"${{ secrets.SECRET_KEY }}\"" > ./.env.prod
+            echo "DATABASE_ENGINE=\"${{ secrets.DATABASE_ENGINE }}\"" > ./.env.prod
+            echo "DATABASE_NAME=\"${{ secrets.DATABASE_NAME }}\"" > ./.env.prod
+            echo "DATABASE_USER=\"${{ secrets.DATABASE_USER }}\"" > ./.env.prod
+            echo "DATABASE_PASSWORD=\"${{ secrets.DATABASE_PASSWORD }}\"" > ./.env.prod
+            echo "DATABASE_HOST=\"${{ secrets.DATABASE_HOST }}\"" > ./.env.prod
+            echo "DATABASE_PORT=\"${{ secrets.DATABASE_PORT }}\"" > ./.env.prod
+            echo "EMAIL_HOST_USER=\"${{ secrets.EMAIL_HOST_USER }}\"" > ./.env.prod
+            echo "EMAIL_HOST_PASSWORD=\"${{ secrets.EMAIL_HOST_PASSWORD }}\"" > ./.env.prod
+
+            source venv/bin/activate
+            pip install -r requirements.txt
+            sudo systemctl restart studyus-test
+            sudo systemctl restart gunicorn
+            sudo systemctl restart nginx
