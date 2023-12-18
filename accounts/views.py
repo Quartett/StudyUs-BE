@@ -3,7 +3,7 @@ from django.db import IntegrityError
 from rest_framework import status, generics
 from rest_framework.response import Response
 from django.contrib.auth import get_user_model, logout
-from .serializers import UserDetailsSerializer
+from .serializers import UserDetailsSerializer, UserStatusSerializer
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
@@ -13,7 +13,8 @@ User = get_user_model()
 
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]
-
+    serializer_class = None # 사용하지 않음
+    
     def get(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
@@ -50,6 +51,32 @@ class CustomRegisterView(RegisterView):
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
 
+class UserStatusView(generics.RetrieveUpdateAPIView):
+    '''
+    사용자의 is_active 상태를 변경하는 API
+    is_active가 True일 경우 활성화 상태
+    is_active가 False일 경우 탈퇴 상태
+    '''
+    queryset = User.objects.all()
+    serializer_class = UserStatusSerializer
+    
+    def patch(self, request, *args, **kwargs):
+        instance = self.get_object()
+        instance.is_active = request.data['is_active']
+        instance.save()
+        
+        logout(request)
+        
+        response = Response(status=status.HTTP_204_NO_CONTENT)
+        return response
+    
+    def get_queryset(self):
+        return self.queryset.filter(pk=self.request.user.pk)
+    
+    def get_object(self):
+        return self.get_queryset().get()
+    
+    
 class UserDeleteView(generics.DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
@@ -61,8 +88,6 @@ class UserDeleteView(generics.DestroyAPIView):
         logout(request)
         
         response = Response(status=status.HTTP_204_NO_CONTENT)
-        response.delete_cookie('my-refresh-token')
-        response.delete_cookie('my-access-token')
         return response
     
     def get_queryset(self):
