@@ -18,11 +18,16 @@
     </div>
 
     <div class="container-sm mt-3">
-        <div id="chat-log" rows="10" class="form-control" style="resize: none;" readonly></div><br>
+        <div id="chat-log" class="form-control" style="resize: none; height: 300px; overflow-y: scroll" readonly></div><br>
         <input id="chat-message-input" type="text" size="100" class="form-control"><br>
         <input id="chat-message-submit" type="button" value="Send" class="btn btn-primary">
     </div>
 
+    <div class="container-sm">
+        <div class="row g-2 mt-3">
+            <a href="index.html">홈으로</a>
+        </div>
+    </div>
 </body>
 </html>
 
@@ -72,6 +77,9 @@
                         <p>${data.message}</p>
                     </div> 
                 `;
+                
+                
+                document.querySelector('#chat-log').scrollTop = document.querySelector('#chat-log').scrollHeight;
         };
     
         chatSocket.onclose = function(e) {

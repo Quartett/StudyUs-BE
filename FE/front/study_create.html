@@ -31,11 +31,14 @@
             const content = document.getElementById('content').value;
             const max_members = document.getElementById('max_members').value;
 
+            const access_token = localStorage.getItem('access_token');
+
             // http://13.115.106.99/
             fetch('http://127.0.0.1:8000/study/create/', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${access_token}`
                 },
                 body: JSON.stringify({ title, content, max_members })
             })
