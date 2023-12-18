@@ -22,8 +22,15 @@ class StudyGroup(models.Model):
 
 class StudyMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
-    study_id = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='study')
-    role = models.CharField(max_length=10)
+    study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='study_group')
+    role = models.IntegerField(default=0)
+
+    class Meta:
+        unique_together = ('study_group', 'user')
+
+
+    def __str__(self):
+        return f'{self.study_group.title}그룹 - {self.role} - {self.user}'
 
 
 class Comment(models.Model):
