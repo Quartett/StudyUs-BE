@@ -1,9 +1,23 @@
 from django.shortcuts import render
+from rest_framework import status
+from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
-from .models import MemoryCard
-from .serializers import MemoryCardSerailizer
+from .models import Subject, MemoryCard
+from .serializers import SubjectSerializer, MemoryCardSerailizer
 from drf_spectacular.utils import extend_schema_view, extend_schema
+
+class SubjectViewSet(ModelViewSet):
+    queryset = Subject.objects.all()
+    serializer_class = SubjectSerializer
+    permission_classes = [IsAuthenticated]
+
+    def get_queryset(self):
+        return self.queryset.filter(user=self.request.user)
+    
+    def perform_create(self, serializer):
+        serializer.save(user=self.request.user)
+
 
 @extend_schema_view(
     update = extend_schema(
@@ -36,7 +50,10 @@ class MemoryCardViewSet(ModelViewSet):
     permission_classes = [IsAuthenticated]
 
     def get_queryset(self):
-        return self.queryset.filter(user=self.request.user)
+        return self.queryset.filter(subject__user=self.request.user)
     
     def perform_create(self, serializer):
-        serializer.save(user=self.request.user)
+        serializer.save(subject__user=self.request.user)
+
+    def update(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
