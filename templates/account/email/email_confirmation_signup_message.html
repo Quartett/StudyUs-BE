@@ -1,0 +1,38 @@
+{% load account %}
+{% load i18n %}
+
+{% block content %}
+{% autoescape off %}
+{% user_display user as user_display %}
+{% blocktrans with site_name=current_site.name site_domain=current_site.domain %}
+
+<!DOCTYPE html>
+<html lang="ko-KR">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <title></title>
+    </head>
+    <body>
+    <div style="background-color: #84C19C; width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center;">
+        <div style="background-color: #FAF8F2; width: 550px; padding: 30px; border-radius: 20px; color: #111111; line-height: 36px;">
+            <h1 style="text-align: center; padding-bottom: 30px;">안녕하세요, 스터디어스입니다</h1>
+            <p>아래 버튼을 눌러 계정을 인증하고, 로그인해주세요!</p>
+            <p>귀하의 아이디는 <span style="font-weight: bold;">{{ user_display }}</span>입니다.</p>
+            <div style="display: flex; justify-content: center;">
+                <a href="{{ activate_url }}" style="background-color: #84C19C; border: none; color: white; padding: 5px 20px; margin: 30px 0px 30px 0px; text-align: center;  text-decoration: none; display: inline-block; font-size: 16px; border-radius: 10px">계정 인증하기</a>
+            </div>
+            <p>만약 동작하지 않는다면 다음 링크를 복사해 브라우저에 붙여넣기해주세요</p>
+            <p>{{ activate_url }}</p>
+            <p>문의사항이 있다면 이메일 주소로 보내주세요</p>
+            <p>스터디어스와 함께 열심히 공부해보아요!</p>
+        </div>
+    </div>
+
+    </body>
+</html>
+
+{% endblocktrans %}
+{% endautoescape %}
+{% endblock %}

@@ -92,7 +92,7 @@ ROOT_URLCONF = "studyus.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [BASE_DIR, 'templates'],
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -205,6 +205,7 @@ REST_AUTH = {
     'LOGIN_SERIALIZER': 'accounts.serializers.LoginSerializer',
     'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserDetailsSerializer',
+    'OLD_PASSWORD_FIELD_ENABLED' : True,
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'my-access-token',
     'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
@@ -218,7 +219,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
-OLD_PASSWORD_FIELD_ENABLED = True
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60), 
@@ -241,6 +242,6 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 ACCOUNT_CONFIRM_EMAIL_ON_GET = True
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
-EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = 'account/confirmation_signup_message.txt'
+EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
 ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
 ACCOUNT_EMAIL_SUBJECT_PREFIX = '[studyus]'

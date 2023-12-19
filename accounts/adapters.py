@@ -1,5 +1,4 @@
 from allauth.account.adapter import DefaultAccountAdapter
-from allauth.account.utils import send_email_confirmation
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
