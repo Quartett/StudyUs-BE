@@ -15,7 +15,7 @@ env = environ.Env(
 ######################
 # 개발용은 .env.dev
 # 실서버용은 .env.prod
-environ.Env.read_env(os.path.join(BASE_DIR, ".env.prod"))
+environ.Env.read_env(os.path.join(BASE_DIR, ".env.dev"))
 ######################
 ######################
 

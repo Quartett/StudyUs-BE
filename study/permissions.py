@@ -1,4 +1,6 @@
 from rest_framework import permissions
+from django.shortcuts import get_object_or_404
+from study.models import StudyGroup, StudyMember
 
 SAFE_METHODS = ['GET', 'HEAD', 'OPTIONS']
 
