@@ -67,24 +67,24 @@ class UserDetailsSerializer(RestAuthUserDetailsSerializer):
         return instance
 
 
-class UserStatusSerializer(serializers.ModelSerializer):
-    is_active = serializers.BooleanField(default=True)
+# class UserStatusSerializer(serializers.ModelSerializer):
+#     is_active = serializers.BooleanField(default=True)
     
-    class Meta:
-        model = User
-        fields = ('is_active',)
+#     class Meta:
+#         model = User
+#         fields = ('is_active',)
         
-    def update(self, instance, validated_data):
-        instance.is_active = validated_data.get('is_active', instance.is_active)
-        instance.save()
-        return instance
+#     def update(self, instance, validated_data):
+#         instance.is_active = validated_data.get('is_active', instance.is_active)
+#         instance.save()
+#         return instance
     
-    def validate(self, data):
-        if data['is_active'] not in [True, False]:
-            raise DjangoValidationError('is_active는 True, False 중 하나여야 합니다.')
-        return data
+#     def validate(self, data):
+#         if data['is_active'] not in [True, False]:
+#             raise DjangoValidationError('is_active는 True, False 중 하나여야 합니다.')
+#         return data
     
-    def to_representation(self, instance):
-        return {
-            'is_active': instance.is_active
-        }
+#     def to_representation(self, instance):
+#         return {
+#             'is_active': instance.is_active
+#         }
