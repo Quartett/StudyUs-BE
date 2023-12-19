@@ -8,7 +8,7 @@ from django.db import transaction
 from rest_framework import views, response, status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
-from .permissions import MemberOnly, IsOwnerOrReadOnly
+from .permissions import MemberOnly, IsOwnerOrReadOnly, IsAuthenticated
 
 User = get_user_model()
 
@@ -20,7 +20,7 @@ class StudygroupListAPIView(generics.ListAPIView):
 class StudygroupCreateView(generics.CreateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [IsAuthenticated]
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
