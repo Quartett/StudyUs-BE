@@ -36,3 +36,7 @@ class IsOwnerOrReadOnly(permissions.BasePermission):
         
         # 요청자(request.user)가 객체(Studygroup)의 user와 동일한지 확인
         return obj.author == request.user
+        
+class IsAuthenticated(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user and request.user.is_authenticated  # 유저가 있고, 로그인 된 유저만 허용
