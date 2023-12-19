@@ -12,7 +12,7 @@ class StudyGroup(models.Model):
     thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
     title = models.TextField()
     level = models.IntegerField()
-    week = models.TextField()
+    week_days = models.TextField()
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
