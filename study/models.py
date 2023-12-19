@@ -33,7 +33,6 @@ class StudyMember(models.Model):
         return f'{self.study_group.title}그룹 - {self.role} - {self.user}'
 
 
-
 class Comment(models.Model):
     study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='comments')
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='comments')
