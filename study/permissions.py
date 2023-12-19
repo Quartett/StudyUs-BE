@@ -22,3 +22,21 @@ class MemberOnly(permissions.BasePermission):
 
         # 요청을 보낸 사용자가 해당 스터디 그룹의 멤버인지 확인
         return StudyMember.objects.filter(study_group=study_group, user=request.user).exists()
+
+
+class IsOwnerOrReadOnly(permissions.BasePermission):
+    """
+    객체의 생성자만 수정할 수 있는 사용자 정의 권한.
+    """
+
+    def has_object_permission(self, request, view, obj):
+        # 읽기 권한 요청이 들어오면 허용
+        if request.method in permissions.SAFE_METHODS:
+            return True
+        
+        # 요청자(request.user)가 객체(Studygroup)의 user와 동일한지 확인
+        return obj.author == request.user
+        
+class IsAuthenticated(permissions.BasePermission):
+    def has_permission(self, request, view):
+        return request.user and request.user.is_authenticated  # 유저가 있고, 로그인 된 유저만 허용
