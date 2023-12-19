@@ -33,7 +33,7 @@
     const studyContent = document.querySelector('#studyContent');
     
     // http://13.115.106.99/
-    fetch(`http://127.0.0.1:8000/study/${studyGroupId}`, {
+    fetch(`http://13.115.106.99/study/${studyGroupId}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -50,7 +50,7 @@
     function setChatSocket(chatRoomId) {
         const chatSocket = new WebSocket(
                 'ws://'
-                + '127.0.0.1:8000'
+                + '13.115.106.99:8001'
                 + '/ws/chat/'
                 + chatRoomId
                 + '/'

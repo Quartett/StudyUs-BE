@@ -50,7 +50,7 @@
         document.querySelector('#withdrawalBtn').onclick = function() {
             const result = confirm("탈퇴?");
             if (result) {
-                fetch('http://127.0.0.1:8000/accounts/user/delete/', {
+                fetch('http://13.115.106.99/accounts/user/delete/', {
                     method: 'DELETE',
                     headers: {
                         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@
     const studyList = document.querySelector('#studyList');
     
     // http://13.115.106.99/
-    fetch('http://127.0.0.1:8000/study/', {
+    fetch('http://13.115.106.99/study/', {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
