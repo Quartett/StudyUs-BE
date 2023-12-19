@@ -8,7 +8,7 @@ from django.db import transaction
 from rest_framework import views, response, status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
-from .permissions import IsOwnerOrReadOnly
+from .permissions import MemberOnly, IsOwnerOrReadOnly
 
 User = get_user_model()
 
@@ -94,7 +94,7 @@ class JoinMemberView(views.APIView):
 
 
 class MemberListView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated]
+    permission_classes = [permissions.IsAuthenticated, MemberOnly]
     @extend_schema(
         summary='그룹 참가자 리스트',
     )
