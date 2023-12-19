@@ -204,6 +204,7 @@ REST_AUTH = {
     'LOGIN_SERIALIZER': 'accounts.serializers.LoginSerializer',
     'REGISTER_SERIALIZER': 'accounts.serializers.RegisterSerializer',
     'USER_DETAILS_SERIALIZER': 'accounts.serializers.UserDetailsSerializer',
+    'OLD_PASSWORD_FIELD_ENABLED' : True,
     'USE_JWT': True,
     'JWT_AUTH_COOKIE': 'my-access-token',
     'JWT_AUTH_REFRESH_COOKIE': 'my-refresh-token',
@@ -217,7 +218,7 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_USERNAME_REQUIRED = False
 ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
-OLD_PASSWORD_FIELD_ENABLED = True
+
 
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=60), 
