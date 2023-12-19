@@ -3,9 +3,11 @@ from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.viewsets import ModelViewSet
 from rest_framework.permissions import IsAuthenticated
+from rest_framework.validators import ValidationError
 from .models import Subject, MemoryCard
 from .serializers import SubjectSerializer, MemoryCardSerailizer
 from drf_spectacular.utils import extend_schema_view, extend_schema
+from django.db import IntegrityError
 
 class SubjectViewSet(ModelViewSet):
     queryset = Subject.objects.all()
@@ -17,6 +19,15 @@ class SubjectViewSet(ModelViewSet):
     
     def perform_create(self, serializer):
         serializer.save(user=self.request.user)
+
+    def create(self, request, *args, **kwargs):
+        try:
+            return super().create(request, *args, **kwargs)
+        except IntegrityError:
+            error_message = {
+                "detail": "이미 존재하는 주제입니다."
+            }
+            return Response(error_message, status=status.HTTP_400_BAD_REQUEST)
 
 
 @extend_schema_view(

@@ -9,6 +9,7 @@ class Subject(models.Model):
 
     class Meta:
         unique_together = ('user', 'title')
+        
 
 
 class MemoryCard(models.Model):
