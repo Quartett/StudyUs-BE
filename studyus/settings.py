@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     "chat",
     "study",
     "accounts",
+    "memorycard",
 ]
 
 MIDDLEWARE = [

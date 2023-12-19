@@ -11,6 +11,7 @@ urlpatterns = [
     path('api/schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'), # API 문서화를 위한 UI
     path('accounts/', include('accounts.urls')),
     path('study/', include('study.urls'), name='study'),
+    path('memorycard/', include('memorycard.urls'), name='memorycard'),
 ]
 
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
