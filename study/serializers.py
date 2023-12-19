@@ -40,7 +40,7 @@ class StudyGroupSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = StudyGroup
-        fields = ['id', 'author', 'thumbnail', 'title', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id']
+        fields = ['id', 'author', 'thumbnail', 'title', 'level', 'week', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id']
         read_only_fields = ['author']
 
 
