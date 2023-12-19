@@ -3,7 +3,7 @@ from rest_framework.routers import DefaultRouter
 from .views import SubjectViewSet, MemoryCardViewSet
 
 router = DefaultRouter()
-router.register('memorycard', MemoryCardViewSet)
+router.register('', MemoryCardViewSet)
 router.register('subject', SubjectViewSet)
 
 urlpatterns = [
