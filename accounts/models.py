@@ -40,7 +40,6 @@ class StudyUsUser(AbstractBaseUser, PermissionsMixin):
     objects = StudyUsUserManager()
 
     date_joined = models.DateTimeField(auto_now_add=True)
-    
     # permission
     is_superuser = models.BooleanField(default=False) # 최상위 권한 - 슈퍼유저
     is_admin = models.BooleanField(default=False) # 차상위 권한 - 관리자
