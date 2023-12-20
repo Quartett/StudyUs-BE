@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters 
 from .models import StudyGroup, Comment, StudyMember
 from chat.models import ChatRoom
 from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
@@ -15,6 +15,8 @@ User = get_user_model()
 class StudygroupListAPIView(generics.ListAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'content']
 
 
 class StudygroupCreateView(generics.CreateAPIView):
