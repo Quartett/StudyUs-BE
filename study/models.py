@@ -8,7 +8,6 @@ class Category(models.Model):
 
 
 class StudyGroup(models.Model):
-    author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='study_id') 
     thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
     title = models.TextField()
     level = models.IntegerField()
