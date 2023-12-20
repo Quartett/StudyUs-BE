@@ -8,11 +8,27 @@ class Category(models.Model):
 
 
 class StudyGroup(models.Model):
+
+    class Difficultys(models.IntegerChoices):
+        EASY = 1
+        NORMAL = 2
+        HARD = 3
+
+
+    class Weeks(models.IntegerChoices):
+        월 = 1
+        화 = 2
+        수 = 3
+        목 = 4
+        금 = 5
+        토 = 6
+        일 = 7
+
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='study_id') 
     thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
     title = models.TextField()
-    level = models.IntegerField()
-    week_days = models.TextField()
+    level = models.IntegerField(choices=Difficultys.choices, default=Difficultys.EASY)
+    week_days = models.TextField(choices=Weeks.choices, default=Weeks.월, blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

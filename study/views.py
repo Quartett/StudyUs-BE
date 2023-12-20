@@ -52,8 +52,8 @@ class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
         summary='스터디그룹 상세보기',
     )
 
-    def get(self, request):
-        return self.list(request)
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
 
 
 class StudygroupUpdateAPIView(generics.UpdateAPIView):
