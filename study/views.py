@@ -9,6 +9,7 @@ from rest_framework import views, response, status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
 from .permissions import MemberOnly, IsOwnerOrReadOnly
+from rest_framework.response import Response
 
 User = get_user_model()
 
@@ -17,12 +18,26 @@ class StudygroupListAPIView(generics.ListAPIView):
     serializer_class = StudyGroupSerializer
     filter_backends = [filters.SearchFilter]
     search_fields = ['title', 'content']
+    
+    @extend_schema(
+        summary='스터디그룹 리스트',
+    )
+
+    def get(self, request):
+        return self.list(request)
 
 
 class StudygroupCreateView(generics.CreateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+    
+    @extend_schema(
+        summary='스터디그룹 생성',
+    )
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
     
     def perform_create(self, serializer):
         serializer.save(author=self.request.user)
@@ -33,17 +48,43 @@ class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
 
+    @extend_schema(
+        summary='스터디그룹 상세보기',
+    )
+
+    def get(self, request):
+        return self.list(request)
+
 
 class StudygroupUpdateAPIView(generics.UpdateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
     permission_classes = [IsOwnerOrReadOnly]
+    
+    @extend_schema(
+        summary='스터디그룹 수정하기',
+    )
+    
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+    
+    @extend_schema(
+        exclude=True
+    )
+    def put(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class StudygroupDestroyAPIView(generics.DestroyAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
 
+    @extend_schema(
+        summary='스터디그룹 삭제하기',
+    )
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 class CommentCreateView(generics.CreateAPIView):
     queryset = Comment.objects.all()
