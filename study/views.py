@@ -151,6 +151,6 @@ class MemberUpdateView(views.APIView):
 
             # 요청한 사용자의 역할 변경 또는 삭제
             request_user_member.role = 0
-            request_user_member.delete()  # 또는 request_user_member.save()를 사용하여 역할만 변경
+            request_user_member.save()
 
         return response.Response({'message': 'Group leadership transferred successfully'}, status=status.HTTP_200_OK)
