@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from rest_framework import generics, permissions
+from rest_framework.response import Response
 from .models import StudyGroup, Comment, StudyMember
 from chat.models import ChatRoom
 from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
@@ -69,12 +70,18 @@ class CommentListView(generics.ListAPIView):
 
 
 @extend_schema(
-    summary='댓글 업데이트'
+    summary='댓글 업데이트',
 )
 class CommentUpdateView(generics.UpdateAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
     permission_classes = [permissions.IsAuthenticated, IsOwnerOrReadOnly]
+
+    @extend_schema(
+    exclude=True
+)
+    def put(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 @extend_schema(
