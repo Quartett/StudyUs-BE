@@ -40,7 +40,7 @@ class ConfirmEmailView(APIView):
 
 class CustomRegisterView(RegisterView):
 
-    def create(self, request, args, **kwargs):
+    def create(self, request, *args, **kwargs):
         try:
             return super().create(request,args, **kwargs)
         except IntegrityError as e:
