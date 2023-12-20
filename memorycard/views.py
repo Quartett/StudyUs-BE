@@ -90,6 +90,7 @@ class MemoryCardViewSet(ModelViewSet):
     queryset = MemoryCard.objects.all()
     serializer_class = MemoryCardSerailizer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+    # lookup_value_regex = r'\d+'
 
     def get_queryset(self):
         return self.queryset.filter(subject__user=self.request.user)
