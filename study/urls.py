@@ -10,7 +10,7 @@ urlpatterns = [
     path('<int:pk>/delete/', views.StudygroupDestroyAPIView.as_view(), name='studydelete'),
     path('comments/', views.CommentCreateView.as_view(), name='comment-create'),
     # 댓글 리스트
-    path('<int:study_group_id>/comments/', views.CommentListView.as_view(), name='comment-list'),
+    path('<int:pk>/comments/', views.CommentListView.as_view(), name='comment-list'),
     # 댓글 수정
     path('comments/<int:pk>/update/', views.CommentUpdateView.as_view(), name='comment-update'),
     # 댓글 삭제
@@ -18,9 +18,9 @@ urlpatterns = [
     # 그룹 참가
     path('join/', views.JoinMemberView.as_view(), name='group-join' ),
     # 그룹 참가자 리스트
-    path('<int:study_group_id>/member/', views.MemberListView.as_view(), name='group-member' ), 
+    path('<int:pk>/member/', views.MemberListView.as_view(), name='group-member' ), 
     # 그룹 참가자 상세보기
-    path('<int:study_group_id>/member/delete', views.MemberDeleteView.as_view(), name='group-member-detail' ),
+    path('<int:pk>/member/delete', views.MemberDeleteView.as_view(), name='group-member-detail' ),
     # 그룹 참가자 업데이트
-    path('<int:study_group_id>/member/update', views.MemberUpdateView.as_view(), name='group-member-update' ),
+    path('<int:pk>/member/update', views.MemberUpdateView.as_view(), name='group-member-update' ),
 ]

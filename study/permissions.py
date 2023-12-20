@@ -8,7 +8,7 @@ class MemberOnly(permissions.BasePermission):
     """
 
     def has_permission(self, request, view):
-        study_group_id = view.kwargs.get('study_group_id')
+        study_group_id = view.kwargs.get('pk')
 
         # study_group_id가 없다면 False 반환
         if not study_group_id:
@@ -16,24 +16,14 @@ class MemberOnly(permissions.BasePermission):
 
         # StudyGroup 객체를 가져옴, 존재하지 않으면 404 에러
         study_group = get_object_or_404(StudyGroup, id=study_group_id)
-        print(StudyMember.objects.filter(study_group=study_group, user=request.user, role=1))
 
         # 요청을 보낸 사용자가 해당 스터디 그룹의 멤버인지 확인
         if request.method in permissions.SAFE_METHODS:
             return StudyMember.objects.filter(study_group=study_group, user=request.user).exists()
+        return StudyMember.objects.filter(study_group=study_group, user=request.user, role=1).exists()
 
     def has_object_permission(self, request, view, obj):
-        study_group_id = view.kwargs.get('study_group_id')
-
-        if not study_group_id:
-            return False
-
-        study_group = get_object_or_404(StudyGroup, id=study_group_id)
-
-        if request.method in permissions.SAFE_METHODS:
-            return StudyMember.objects.filter(study_group=study_group, user=request.user).exists()
-        print(StudyMember.objects.filter(study_group=study_group, user=request.user, role=1))
-        return StudyMember.objects.filter(study_group=study_group, user=request.user).get().role == 1
+        return True
 
 
 class IsOwnerOrReadOnly(permissions.BasePermission):

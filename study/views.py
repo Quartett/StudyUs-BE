@@ -65,7 +65,7 @@ class CommentListView(generics.ListAPIView):
     serializer_class = CommentSerializer
 
     def get_queryset(self):
-        return self.queryset.filter(study_group_id=self.kwargs['study_group_id'])
+        return self.queryset.filter(study_group_id=self.kwargs['pk'])
 
 
 @extend_schema(
@@ -112,8 +112,8 @@ class MemberListView(views.APIView):
         summary='그룹 참가자 리스트',
     )
 
-    def get(self, request, study_group_id):
-        study_group = get_object_or_404(StudyGroup, id=study_group_id)
+    def get(self, request, pk):
+        study_group = get_object_or_404(StudyGroup, id=pk)
         member = StudyMember.objects.filter(study_group=study_group)
         serializer = MemberSerializer(member, many=True)
         return response.Response(serializer.data)
@@ -125,8 +125,8 @@ class MemberDeleteView(views.APIView):
         summary='그룹 탈퇴',
     )
 
-    def delete(self, request, study_group_id):
-        study_group = get_object_or_404(StudyGroup, id=study_group_id)
+    def delete(self, request, pk):
+        study_group = get_object_or_404(StudyGroup, id=pk)
         user = request.user
 
         # 스터디 멤버 객체를 찾고 삭제
@@ -146,14 +146,10 @@ class MemberUpdateView(views.APIView):
         request=UpdateMemberSerializer,
     )
 
-    def patch(self, request, study_group_id):
-        study_group = get_object_or_404(StudyGroup, id=study_group_id)
+    def patch(self, request, pk):
+        study_group = get_object_or_404(StudyGroup, id=pk)
         request_user_member = get_object_or_404(StudyMember, study_group=study_group, user=request.user)
         target_user_id = request.data.get('user')
-
-        # # 요청한 사용자가 그룹장인지 확인
-        # if request_user_member.role != 1:
-        #     return response.Response({'message': '오직 그룹장만이 권한이 있습니다.'}, status=status.HTTP_403_FORBIDDEN)
 
         with transaction.atomic():
             # 지정된 유저를 그룹장으로 설정
