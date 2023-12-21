@@ -7,7 +7,7 @@ from rest_framework.generics import get_object_or_404
 from .models import Subject, MemoryCard
 from .serializers import SubjectSerializer, MemoryCardSerailizer
 from .permissions import IsOwnerOrReadOnly
-from drf_spectacular.utils import extend_schema_view, extend_schema
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
 from django.db import IntegrityError
 
 @extend_schema_view(
@@ -71,7 +71,14 @@ class SubjectViewSet(ModelViewSet):
     ),
     list = extend_schema(
         summary="암기 카드 전체 리스트",
-        description="사용자가 생성한 암기 카드 전체 리스트"
+        description="사용자가 생성한 암기 카드 전체 리스트",
+        parameters=[
+            OpenApiParameter(
+                name="subject",
+                type=int, 
+                description="주제 아이디를 입력하여 해당 암기카드들만 필터링", 
+                required=False)
+        ]
     ),
     create = extend_schema(
         summary="암기 카드 생성",
@@ -90,9 +97,11 @@ class MemoryCardViewSet(ModelViewSet):
     queryset = MemoryCard.objects.all()
     serializer_class = MemoryCardSerailizer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-    # lookup_value_regex = r'\d+'
 
     def get_queryset(self):
+        subject = self.request.GET.get('subject', '')
+        if subject:
+            return self.queryset.filter(subject__user=self.request.user, subject__id=subject)
         return self.queryset.filter(subject__user=self.request.user)
     
     def perform_create(self, serializer):
