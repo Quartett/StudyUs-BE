@@ -8,9 +8,13 @@ from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
 from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
+from drf_spectacular.utils import extend_schema
 
 User = get_user_model()
 
+@extend_schema(
+    summary='이메일 인증',
+)
 class ConfirmEmailView(APIView):
     permission_classes = [AllowAny]
     serializer_class = None # 사용하지 않음
@@ -38,6 +42,9 @@ class ConfirmEmailView(APIView):
         return qs
 
 
+@extend_schema(
+    summary='회원가입 (닉네임, 이메일 중복 확인)',
+)
 class CustomRegisterView(RegisterView):
 
     def create(self, request, *args, **kwargs):
@@ -76,7 +83,10 @@ class CustomRegisterView(RegisterView):
 #     def get_object(self):
 #         return self.get_queryset().get()
     
-    
+
+@extend_schema(
+    summary='회원 탈퇴',
+)
 class UserDeleteView(generics.DestroyAPIView):
     queryset = User.objects.all()
     serializer_class = UserDetailsSerializer
