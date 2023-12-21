@@ -18,7 +18,7 @@ class StudygroupListAPIView(generics.ListAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
     filter_backends = [filters.SearchFilter]
-    search_fields = ['title', 'content']
+    search_fields = ['title', 'content', 'category__category_name']
     
     @extend_schema(
         summary='스터디그룹 리스트',
