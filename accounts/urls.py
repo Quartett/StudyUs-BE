@@ -1,10 +1,10 @@
 from django.urls import path, re_path, include
-from .views import ConfirmEmailView, UserDeleteView
+from .views import ConfirmEmailView, UserDeleteView, CustomRegisterView
 from dj_rest_auth.registration.views import VerifyEmailView
 
 urlpatterns = [
     path('', include('dj_rest_auth.urls')),
-    path('join/', include('dj_rest_auth.registration.urls')),
+    path('join/', CustomRegisterView.as_view(), name='rest_register'),
     path('allauth/', include('allauth.urls')),
     # path('user/change_status/', UserStatusView.as_view(), name='chang_user_status'),
     path('user/delete/', UserDeleteView.as_view(), name='user_delete'),
