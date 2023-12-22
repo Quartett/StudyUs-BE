@@ -8,7 +8,7 @@ class Category(models.Model):
 
 
 class StudyGroup(models.Model):
-  
+
     class Difficultys(models.IntegerChoices):
         EASY = 1
         NORMAL = 2
@@ -26,15 +26,27 @@ class StudyGroup(models.Model):
     thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
     title = models.TextField()
     level = models.IntegerField(choices=Difficultys.choices, default=Difficultys.EASY)
-    week_days = models.TextField(choices=Weeks.choices, default=Weeks.월, blank=True)
+    week_days = models.TextField(default='', blank=True)
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    study_start_at = models.DateField(blank=True)
-    study_end_at = models.DateField(blank=True)
+    study_start_at = models.DateField(blank=True, null=True)
+    study_end_at = models.DateField(blank=True, null=True)
     max_members = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
 
+    def get_week_days_list(self):
+        # 저장된 문자열을 파싱하여 리스트로 반환
+        return [int(day) for day in self.week_days.split(',') if day]
+
+    def set_week_days_list(self, days):
+        # 리스트를 문자열로 변환하여 저장
+        self.week_days = ','.join(str(day) for day in days)
+
+    week_days_list = property(get_week_days_list, set_week_days_list)
+
+    def __str__(self):
+        return self.title
 
 class StudyMember(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
