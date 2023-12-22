@@ -152,6 +152,13 @@ class JoinMemberView(views.APIView):
         if serializer.is_valid():
             study_group = serializer.validated_data['study_group']
             role = serializer.validated_data['role']
+
+            # 현재 스터디 그룹의 멤버 수를 확인합니다.
+            current_member_count = StudyMember.objects.filter(study_group=study_group).count()
+
+            # max_members를 초과하면 가입을 거부합니다.
+            if current_member_count >= study_group.max_members:
+                return response.Response({'message': '멤버 수가 가득 찼습니다.'}, status=status.HTTP_400_BAD_REQUEST)
             member, created = StudyMember.objects.get_or_create(study_group=study_group, user=request.user, role=role)
 
             if not created:
