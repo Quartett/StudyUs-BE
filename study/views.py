@@ -1,16 +1,20 @@
-from django.shortcuts import render
+# Django 모듈
+from django.db import transaction
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+
+# Django 서드 파티 모듈
 from rest_framework import generics, permissions, filters 
 from rest_framework.response import Response
-from .models import StudyGroup, Comment, StudyMember
 from chat.models import ChatRoom
-from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
-from django.shortcuts import get_object_or_404
-from django.db import transaction
 from rest_framework import views, response, status
 from drf_spectacular.utils import extend_schema
-from django.contrib.auth import get_user_model
-from .permissions import MemberOnly, IsOwnerOrReadOnly
 from rest_framework.response import Response
+
+# 내부 파일 또는 라이브러리
+from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
+from .models import StudyGroup, Comment, StudyMember
+from .permissions import MemberOnly, IsOwnerOrReadOnly
 
 User = get_user_model()
 
@@ -61,7 +65,7 @@ class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
 class StudygroupUpdateAPIView(generics.UpdateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [MemberOnly]
     
     @extend_schema(
         summary='스터디그룹 수정하기',
