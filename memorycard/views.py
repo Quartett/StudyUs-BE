@@ -107,6 +107,3 @@ class MemoryCardViewSet(ModelViewSet):
     def perform_create(self, serializer):
         subject_id = self.request.data.get('subject')
         serializer.save(subject=get_object_or_404(Subject, pk=subject_id))
-
-    def update(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
