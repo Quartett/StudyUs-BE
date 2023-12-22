@@ -30,8 +30,8 @@ class StudyGroup(models.Model):
     content = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    study_start_at = models.DateField(blank=True)
-    study_end_at = models.DateField(blank=True)
+    study_start_at = models.DateField(blank=True, null=True)
+    study_end_at = models.DateField(blank=True, null=True)
     max_members = models.IntegerField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
 
