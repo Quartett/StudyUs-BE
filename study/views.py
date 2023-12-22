@@ -61,7 +61,7 @@ class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
 class StudygroupUpdateAPIView(generics.UpdateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
-    permission_classes = [IsOwnerOrReadOnly]
+    permission_classes = [MemberOnly]
     
     @extend_schema(
         summary='스터디그룹 수정하기',
