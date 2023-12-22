@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters 
 from rest_framework.response import Response
 from .models import StudyGroup, Comment, StudyMember
 from chat.models import ChatRoom
@@ -10,18 +10,35 @@ from rest_framework import views, response, status
 from drf_spectacular.utils import extend_schema
 from django.contrib.auth import get_user_model
 from .permissions import MemberOnly, IsOwnerOrReadOnly
+from rest_framework.response import Response
 
 User = get_user_model()
 
 class StudygroupListAPIView(generics.ListAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
+    filter_backends = [filters.SearchFilter]
+    search_fields = ['title', 'content', 'category__category_name']
+    
+    @extend_schema(
+        summary='스터디그룹 리스트',
+    )
+
+    def get(self, request):
+        return self.list(request)
 
 
 class StudygroupCreateView(generics.CreateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
     permission_classes = [permissions.IsAuthenticated]
+    
+    @extend_schema(
+        summary='스터디그룹 생성',
+    )
+    
+    def post(self, request, *args, **kwargs):
+        return self.create(request, *args, **kwargs)
     
     def perform_create(self, serializer):
         serializer.save()
@@ -33,11 +50,31 @@ class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
 
+    @extend_schema(
+        summary='스터디그룹 상세보기',
+    )
+
+    def get(self, request, *args, **kwargs):
+        return self.retrieve(request, *args, **kwargs)
+
 
 class StudygroupUpdateAPIView(generics.UpdateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
-    permission_classes = [permissions.IsAuthenticated, MemberOnly]
+    permission_classes = [IsOwnerOrReadOnly]
+    
+    @extend_schema(
+        summary='스터디그룹 수정하기',
+    )
+    
+    def patch(self, request, *args, **kwargs):
+        return self.partial_update(request, *args, **kwargs)
+    
+    @extend_schema(
+        exclude=True
+    )
+    def put(self, request, *args, **kwargs):
+        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
 
 
 class StudygroupDestroyAPIView(generics.DestroyAPIView):
@@ -45,6 +82,12 @@ class StudygroupDestroyAPIView(generics.DestroyAPIView):
     serializer_class = StudyGroupSerializer
     permission_classes = [permissions.IsAuthenticated, MemberOnly]
 
+    @extend_schema(
+        summary='스터디그룹 삭제하기',
+    )
+
+    def delete(self, request, *args, **kwargs):
+        return self.destroy(request, *args, **kwargs)
 
 @extend_schema(
         summary='댓글 작성',
