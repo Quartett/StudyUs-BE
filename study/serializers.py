@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from .models import Comment, StudyGroup, StudyMember
+from accounts.models import StudyUsUser
 
 class CommentSerializer(serializers.ModelSerializer):
     # 댓글에 대한 유저의 이름을 보여주기 위해 추가
@@ -63,15 +64,22 @@ class UpdateMemberSerializer(serializers.ModelSerializer):
 class StudyGroupSerializer(serializers.ModelSerializer):
     chat_room_id = serializers.SerializerMethodField()    
     comments = CommentSerializer(many=True, read_only=True)
-    # leader = MemberSerializer(read_only=True)
+    leader = serializers.SerializerMethodField()
 
     class Meta:
         model = StudyGroup
-        fields = ['id', 'thumbnail', 'title', 'level', 'week_days', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id']
+        fields = ['id', 'thumbnail', 'title', 'level', 'week_days', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id', 'leader']
 
 
     def get_chat_room_id(self, obj):
         return obj.chat_room.id
     
-    # def get_leader(self, obj):
-    #     return obj.study_group.filter(role=1).first().user.nickname
+    def get_leader(self, obj):
+        leader = StudyMember.objects.filter(study_group=obj, role=1).first()
+        if leader:
+            leader_info = StudyUsUser.objects.get(id=leader.user.id)
+            return {
+                'nickname': leader_info.nickname,
+                'profile_image': leader_info.profile_image.url if leader_info.profile_image else None
+            }
+        return None
