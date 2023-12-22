@@ -22,7 +22,7 @@ class StudyGroup(models.Model):
         금 = 5
         토 = 6
         일 = 7
-        
+    
     thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
     title = models.TextField()
     level = models.IntegerField(choices=Difficultys.choices, default=Difficultys.EASY)
