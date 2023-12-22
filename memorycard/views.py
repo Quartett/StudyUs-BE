@@ -100,7 +100,11 @@ class MemoryCardViewSet(ModelViewSet):
 
     def get_queryset(self):
         subject = self.request.GET.get('subject', '')
-        if subject:
+        bookmark = self.request.GET.get('bookmark', 'off')
+        
+        if subject and bookmark == 'on':
+            return self.queryset.filter(subject__user=self.request.user, subject__id=subject, bookmark=True)
+        elif subject and bookmark == "off":
             return self.queryset.filter(subject__user=self.request.user, subject__id=subject)
         return self.queryset.filter(subject__user=self.request.user)
     
