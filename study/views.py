@@ -168,7 +168,6 @@ class JoinMemberView(views.APIView):
 
 
 class MemberListView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated, MemberOnly]
     @extend_schema(
         summary='그룹 참가자 리스트',
     )
