@@ -24,3 +24,6 @@ class MemoryCard(models.Model):
     memory_answer = models.TextField()
     bookmark = models.BooleanField(default=False)
     difficulty = models.IntegerField(choices=Difficultys.choices, default=Difficultys.EASY)
+
+    class Meta:
+        ordering = ['-id']

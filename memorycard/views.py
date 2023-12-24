@@ -7,7 +7,7 @@ from rest_framework.generics import get_object_or_404
 from .models import Subject, MemoryCard
 from .serializers import SubjectSerializer, MemoryCardSerailizer
 from .permissions import IsOwnerOrReadOnly
-from drf_spectacular.utils import extend_schema_view, extend_schema
+from drf_spectacular.utils import extend_schema_view, extend_schema, OpenApiParameter
 from django.db import IntegrityError
 
 @extend_schema_view(
@@ -71,7 +71,14 @@ class SubjectViewSet(ModelViewSet):
     ),
     list = extend_schema(
         summary="암기 카드 전체 리스트",
-        description="사용자가 생성한 암기 카드 전체 리스트"
+        description="사용자가 생성한 암기 카드 전체 리스트",
+        parameters=[
+            OpenApiParameter(
+                name="subject",
+                type=int, 
+                description="주제 아이디를 입력하여 해당 암기카드들만 필터링", 
+                required=False)
+        ]
     ),
     create = extend_schema(
         summary="암기 카드 생성",
@@ -90,14 +97,30 @@ class MemoryCardViewSet(ModelViewSet):
     queryset = MemoryCard.objects.all()
     serializer_class = MemoryCardSerailizer
     permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
-    # lookup_value_regex = r'\d+'
 
     def get_queryset(self):
+        subject = self.request.GET.get('subject', '')
+        bookmark = self.request.GET.get('bookmark', 'off')
+        
+        if subject and bookmark == 'on':
+            return self.queryset.filter(subject__user=self.request.user, subject__id=subject, bookmark=True)
+        elif subject and bookmark == "off":
+            return self.queryset.filter(subject__user=self.request.user, subject__id=subject)
         return self.queryset.filter(subject__user=self.request.user)
     
     def perform_create(self, serializer):
         subject_id = self.request.data.get('subject')
         serializer.save(subject=get_object_or_404(Subject, pk=subject_id))
 
-    def update(self, request, *args, **kwargs):
-        return Response(status=status.HTTP_405_METHOD_NOT_ALLOWED)
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        next_memorycard = MemoryCard.objects.filter(subject=instance.subject, id__gt=instance.id).order_by('id').first()
+        prev_memorycard = MemoryCard.objects.filter(subject=instance.subject, id__lt=instance.id).order_by('-id').first()
+        data = {
+            "data": serializer.data,
+            "next_memorycard_id": next_memorycard.id if next_memorycard else None,
+            "prev_memorycard_id": prev_memorycard.id if prev_memorycard else None
+        }
+
+        return Response(data)
