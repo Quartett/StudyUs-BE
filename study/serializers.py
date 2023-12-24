@@ -34,24 +34,6 @@ class CommentSerializer(serializers.ModelSerializer):
         return super().create(validated_data)
 
 
-class StudyGroupSerializer(serializers.ModelSerializer):
-    chat_room_id = serializers.SerializerMethodField()    
-    comments = CommentSerializer(many=True, read_only=True)
-
-    class Meta:
-        model = StudyGroup
-        fields = ['id', 'author', 'thumbnail', 'title', 'level', 'week_days', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id']
-        read_only_fields = ['author']
-
-
-    def create(self, validated_data):
-        validated_data['author'] = self.context['request'].user
-        return super().create(validated_data)
-
-    def get_chat_room_id(self, obj):
-        return obj.chat_room.id
-
-
 class MemberSerializer(serializers.ModelSerializer):
     user_nickname = serializers.SerializerMethodField()
 
@@ -76,3 +58,20 @@ class UpdateMemberSerializer(serializers.ModelSerializer):
     
     def get_user_nickname(self, obj):
         return obj.user.nickname
+
+
+class StudyGroupSerializer(serializers.ModelSerializer):
+    chat_room_id = serializers.SerializerMethodField()    
+    comments = CommentSerializer(many=True, read_only=True)
+    # leader = MemberSerializer(read_only=True)
+
+    class Meta:
+        model = StudyGroup
+        fields = ['id', 'thumbnail', 'title', 'level', 'week_days', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id']
+
+
+    def get_chat_room_id(self, obj):
+        return obj.chat_room.id
+    
+    # def get_leader(self, obj):
+    #     return obj.study_group.filter(role=1).first().user.nickname
