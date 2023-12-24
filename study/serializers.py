@@ -37,28 +37,38 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class MemberSerializer(serializers.ModelSerializer):
     user_nickname = serializers.SerializerMethodField()
+    profile_image = serializers.SerializerMethodField()
 
     class Meta:
         model = StudyMember
-        fields = ['id', 'study_group', 'user', 'user_nickname', 'role']
+        fields = ['id', 'study_group', 'user', 'user_nickname', 'role', 'profile_image']
         read_only_fields = ['user']
 
 
     def get_user_nickname(self, obj):
         return obj.user.nickname
+    
+    def get_profile_image(self, obj):
+        # 멤버의 프로필 이미지를 보여주기 위해 추가
+        return obj.user.profile_image.url if obj.user.profile_image else None
 
 
 class UpdateMemberSerializer(serializers.ModelSerializer):
     user_nickname = serializers.SerializerMethodField()
+    profile_image = serializers.SerializerMethodField()
 
     class Meta:
         model = StudyMember
-        fields = ['id', 'study_group', 'user', 'user_nickname', 'role']
+        fields = ['id', 'study_group', 'user', 'user_nickname', 'role', 'profile_image']
         read_only_fields = ['study_group','role']
 
     
     def get_user_nickname(self, obj):
         return obj.user.nickname
+    
+    def get_profile_image(self, obj):
+        # 멤버의 프로필 이미지를 보여주기 위해 추가
+        return obj.user.profile_image.url if obj.user.profile_image else None
 
 
 class StudyGroupSerializer(serializers.ModelSerializer):
