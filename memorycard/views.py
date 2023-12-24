@@ -100,10 +100,27 @@ class MemoryCardViewSet(ModelViewSet):
 
     def get_queryset(self):
         subject = self.request.GET.get('subject', '')
-        if subject:
+        bookmark = self.request.GET.get('bookmark', 'off')
+        
+        if subject and bookmark == 'on':
+            return self.queryset.filter(subject__user=self.request.user, subject__id=subject, bookmark=True)
+        elif subject and bookmark == "off":
             return self.queryset.filter(subject__user=self.request.user, subject__id=subject)
         return self.queryset.filter(subject__user=self.request.user)
     
     def perform_create(self, serializer):
         subject_id = self.request.data.get('subject')
         serializer.save(subject=get_object_or_404(Subject, pk=subject_id))
+
+    def retrieve(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.get_serializer(instance)
+        next_memorycard = MemoryCard.objects.filter(subject=instance.subject, id__gt=instance.id).order_by('id').first()
+        prev_memorycard = MemoryCard.objects.filter(subject=instance.subject, id__lt=instance.id).order_by('-id').first()
+        data = {
+            "data": serializer.data,
+            "next_memorycard_id": next_memorycard.id if next_memorycard else None,
+            "prev_memorycard_id": prev_memorycard.id if prev_memorycard else None
+        }
+
+        return Response(data)
