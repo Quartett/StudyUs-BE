@@ -1,16 +1,20 @@
-from django.shortcuts import render
+# Django 모듈
+from django.db import transaction
+from django.contrib.auth import get_user_model
+from django.shortcuts import get_object_or_404
+
+# Django 서드 파티 모듈
 from rest_framework import generics, permissions, filters 
 from rest_framework.response import Response
-from .models import StudyGroup, Comment, StudyMember
 from chat.models import ChatRoom
-from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
-from django.shortcuts import get_object_or_404
-from django.db import transaction
 from rest_framework import views, response, status
 from drf_spectacular.utils import extend_schema
-from django.contrib.auth import get_user_model
-from .permissions import MemberOnly, IsOwnerOrReadOnly
 from rest_framework.response import Response
+
+# 내부 파일 또는 라이브러리
+from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
+from .models import StudyGroup, Comment, StudyMember
+from .permissions import MemberOnly, IsOwnerOrReadOnly
 
 User = get_user_model()
 
@@ -148,6 +152,13 @@ class JoinMemberView(views.APIView):
         if serializer.is_valid():
             study_group = serializer.validated_data['study_group']
             role = serializer.validated_data['role']
+
+            # 현재 스터디 그룹의 멤버 수를 확인합니다.
+            current_member_count = StudyMember.objects.filter(study_group=study_group).count()
+
+            # max_members를 초과하면 가입을 거부합니다.
+            if current_member_count >= study_group.max_members:
+                return response.Response({'message': '멤버 수가 가득 찼습니다.'}, status=status.HTTP_400_BAD_REQUEST)
             member, created = StudyMember.objects.get_or_create(study_group=study_group, user=request.user, role=role)
 
             if not created:
@@ -157,7 +168,6 @@ class JoinMemberView(views.APIView):
 
 
 class MemberListView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated, MemberOnly]
     @extend_schema(
         summary='그룹 참가자 리스트',
     )
