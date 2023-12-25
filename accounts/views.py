@@ -9,6 +9,7 @@ from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from drf_spectacular.utils import extend_schema
+from django.shortcuts import render
 
 User = get_user_model()
 
@@ -22,7 +23,7 @@ class ConfirmEmailView(APIView):
     def get(self, *args, **kwargs):
         self.object = confirmation = self.get_object()
         confirmation.confirm(self.request)
-        return HttpResponseRedirect('/login/success/') # 인증성공
+        return render(self.request, 'account/email/login_success.html')
 
     def get_object(self, queryset=None):
         key = self.kwargs['key']
@@ -57,32 +58,6 @@ class CustomRegisterView(RegisterView):
             }
             return Response(response_data, status=status.HTTP_400_BAD_REQUEST)
 
-
-# class UserStatusView(generics.RetrieveUpdateAPIView):
-#     '''
-#     사용자의 is_active 상태를 변경하는 API
-#     is_active가 True일 경우 활성화 상태
-#     is_active가 False일 경우 탈퇴 상태
-#     '''
-#     queryset = User.objects.all()
-#     serializer_class = UserStatusSerializer
-    
-#     def patch(self, request, *args, **kwargs):
-#         instance = self.get_object()
-#         instance.is_active = request.data['is_active']
-#         instance.save()
-        
-#         logout(request)
-        
-#         response = Response(status=status.HTTP_204_NO_CONTENT)
-#         return response
-    
-#     def get_queryset(self):
-#         return self.queryset.filter(pk=self.request.user.pk)
-    
-#     def get_object(self):
-#         return self.get_queryset().get()
-    
 
 @extend_schema(
     summary='회원 탈퇴',
