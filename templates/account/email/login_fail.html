@@ -23,7 +23,7 @@
     <script>
         document.querySelector('.resend_btn').addEventListener('click', function() {
             const email = document.querySelector('.resend_email').value;
-            fetch('http://127.0.0.1:8000/accounts/account/resend-email/', {
+            fetch('https://api-studyus.kro.kr/accounts/account/resend-email/', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
