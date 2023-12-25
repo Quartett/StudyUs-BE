@@ -4,7 +4,7 @@ from dj_rest_auth.registration.views import VerifyEmailView
 
 urlpatterns = [
     path('', include('dj_rest_auth.urls')),
-    path('', include('dj_rest_auth.registration.urls')),
+    path('account/', include('dj_rest_auth.registration.urls')),
     path('join/', CustomRegisterView.as_view(), name='rest_register'),
     path('allauth/', include('allauth.urls')),
     path('user/delete/', UserDeleteView.as_view(), name='user_delete'),

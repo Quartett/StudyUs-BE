@@ -2,10 +2,9 @@ from dj_rest_auth.registration.views import RegisterView
 from django.db import IntegrityError
 from rest_framework import status, generics
 from rest_framework.response import Response
-from django.contrib.auth import get_user_model, logout
+from django.contrib.auth import get_user_model
 from .serializers import UserDetailsSerializer
 from allauth.account.models import EmailConfirmation, EmailConfirmationHMAC
-from django.http import HttpResponseRedirect
 from rest_framework.views import APIView
 from rest_framework.permissions import AllowAny
 from drf_spectacular.utils import extend_schema
@@ -34,7 +33,7 @@ class ConfirmEmailView(APIView):
             try:
                 email_confirmation = queryset.get(key=key.lower())
             except EmailConfirmation.DoesNotExist:
-                return HttpResponseRedirect('/login/failure') # 인증실패
+                return render(self.request, 'account/email/login_fail.html')# 인증실패
         return email_confirmation
 
     def get_queryset(self):
@@ -69,8 +68,6 @@ class UserDeleteView(generics.DestroyAPIView):
     def delete(self, request, *args, **kwargs):
         instance = self.get_object()
         instance.delete()
-        
-        logout(request)
         
         response = Response(status=status.HTTP_204_NO_CONTENT)
         return response
