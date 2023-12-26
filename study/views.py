@@ -223,3 +223,15 @@ class MemberUpdateView(views.APIView):
             request_user_member.save()
 
         return response.Response({'message': '그룹장 변경 성공'}, status=status.HTTP_200_OK)
+
+
+@extend_schema(
+    summary="내가 속한 그룹의 채팅방 리스트",
+    description="내가 가입한 스터디 그룹들의 채팅방 목록입니다"
+)
+class ChatListView(generics.ListAPIView):
+    queryset = StudyGroup.objects.all()
+    serializer_class = StudyGroupSerializer
+
+    def get_queryset(self):
+        return super().get_queryset().filter(study_group__user=self.request.user)

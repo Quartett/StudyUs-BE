@@ -23,4 +23,6 @@ urlpatterns = [
     path('<int:pk>/member/delete/', views.MemberDeleteView.as_view(), name='group-member-detail' ),
     # 그룹 참가자 업데이트
     path('<int:pk>/member/update/', views.MemberUpdateView.as_view(), name='group-member-update' ),
+    # 내가 속한 그룹 리스트(채팅 페이지용)
+    path('chat/', views.ChatListView.as_view(), name='chat-list'),
 ]
