@@ -189,11 +189,29 @@ class MemberDeleteView(views.APIView):
         study_group = get_object_or_404(StudyGroup, id=pk)
         user = request.user
 
-        # 스터디 멤버 객체를 찾고 삭제
         try:
             member = StudyMember.objects.get(study_group=study_group, user=user)
+
+            if member.role == 1:
+                new_leader = StudyMember.objects.filter(
+                    study_group=study_group
+                ).exclude(
+                    user=user
+                ).first()
+
+                if new_leader:
+                    new_leader.role = 1
+                    new_leader.save()
+                else:
+                    return response.Response(
+                        {'message': '다른 멤버가 없으므로 그룹을 탈퇴할 수 없습니다.'},
+                        status=status.HTTP_400_BAD_REQUEST
+                    )
+
+            # 현재 멤버 삭제
             member.delete()
             return response.Response(status=status.HTTP_204_NO_CONTENT)
+
         except StudyMember.DoesNotExist:
             # 멤버가 존재하지 않는 경우
             return response.Response({'message': '해당 멤버가 없습니다.'}, status=status.HTTP_404_NOT_FOUND)
