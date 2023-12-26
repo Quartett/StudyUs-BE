@@ -330,7 +330,7 @@ PW : testpw581
             except EmailConfirmation.DoesNotExist:
                 return render(self.request, 'account/email/login_fail.html')# 인증실패
         return email_confirmation
-    ...생략...
+        ...생략...
     ```
     #### [⬆️ accounts/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/views.py#L18C1-L43C1)
 - urls.py에서 repath와 정규 표현식을 통해 이메일 인증 key를 받는 url을 작성하였음.
@@ -371,13 +371,13 @@ PW : testpw581
         user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
         study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='study_group')
         role = models.IntegerField(default=0)
-    ...생략...
+        ...생략...
     ```
     #### [⬆️ study/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/models.py#L10C1-L61C73)
     ```python
     # study/views.py
     class JoinMemberView(views.APIView):
-    ...생략...
+        ...생략...
         def post(self, request):
             ...생략...
             if serializer.is_valid():
@@ -387,7 +387,7 @@ PW : testpw581
                 if current_member_count >= study_group.max_members:
                     return response.Response({'message': '멤버 수가 가득 찼습니다.'}, status=status.HTTP_400_BAD_REQUEST)
                 member, created = StudyMember.objects.get_or_create(study_group=study_group, user=request.user, role=role)
-    ...생략...
+                ...생략...
     ```
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L143C1-L167C69)
 
@@ -448,11 +448,34 @@ PW : testpw581
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L99C1-L106C1)
   
 #### 6.2.4. 스터디 그룹을 생성한 그룹장일 경우에만 그룹 정보 수정이 가능합니다.
-- views의 StudygroupUpdateAPIView를 통해서 수정하며, permission을 MemberOnly로 적용함
+- views의 StudygroupUpdateAPIView를 통해서 수정하며, permission을 MemberOnly로 적용하였습니다.
+    ```python
+    # study/views.py
+    class StudygroupUpdateAPIView(generics.UpdateAPIView):
+        queryset = StudyGroup.objects.all()
+        serializer_class = StudyGroupSerializer
+        permission_classes = [MemberOnly]
+        ...생략...
+    ```
+    #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/3c09f74fcd957792ae28fcacc9178569835bcb41/study/views.py#L65C1-L81C67)
+- MemberOnly는 요청의 종류에 따라 스터디그룹의 일반 멤버에게만 권한을 줄지, 스터디 그룹장에게만 권한을 줄지 설정하는 클래스입니다.
+    ```python
+    # study/permissions.py
+    class MemberOnly(permissions.BasePermission):
+    
+    def has_permission(self, request, view):
+        ...생략...
+        if request.method in permissions.SAFE_METHODS:
+            return StudyMember.objects.filter(study_group=study_group, user=request.user).exists()
+        return StudyMember.objects.filter(study_group=study_group, user=request.user, role=1).exists()
+        ...생략...
+    ```
+    #### [⬆️ study/permissions.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/3c09f74fcd957792ae28fcacc9178569835bcb41/study/permissions.py#L5C1-L26C20)
 
 ### 6.3. APP : chat
 
 #### 6.3.1. 스터디 그룹 내에서 멤버들끼리 실시간 채팅이 가능합니다.
+
 
 ### 6.4. APP : memorycard
 
