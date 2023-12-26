@@ -7,10 +7,11 @@ class CommentSerializer(serializers.ModelSerializer):
     author_nickname = serializers.SerializerMethodField()
     # 댓글에 대한 답글을 보여주기 위해 추가
     reply = serializers.SerializerMethodField()
+    profile_image = serializers.SerializerMethodField()
 
     class Meta:
         model = Comment
-        fields = ['id', 'parent', 'study_group', 'author', 'author_nickname', 'text', 'created_at', 'reply']
+        fields = ['id', 'parent', 'study_group', 'author', 'author_nickname', 'text', 'created_at', 'reply', 'profile_image']
         read_only_fields = ['author']
 
 
@@ -33,6 +34,11 @@ class CommentSerializer(serializers.ModelSerializer):
     def create(self, validated_data):
         validated_data['author'] = self.context['request'].user
         return super().create(validated_data)
+    
+    def get_profile_image(self, obj):
+        # author의 id를 통해서 StudyUsUser의 profile_image를 가져옴
+        author = StudyUsUser.objects.get(id=obj.author.id)
+        return author.profile_image.url if author.profile_image else None
 
 
 class MemberSerializer(serializers.ModelSerializer):
