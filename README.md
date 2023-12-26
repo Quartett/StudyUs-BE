@@ -72,7 +72,74 @@ PW : testpw581
 ## 3. 프로젝트 구조와 개발 일정
 
 ### 3.1 프로젝트 구조
-
+📦StudyUs-BE  
+ ┣ 📂.git  
+ ┣ 📂.github  
+ ┣ 📂.vscode  
+ ┣ 📂accounts  
+ ┃ ┣ 📂management  
+ ┃ ┣ 📂migrations  
+ ┃ ┣ 📜adapters.py  
+ ┃ ┣ 📜admin.py  
+ ┃ ┣ 📜apps.py  
+ ┃ ┣ 📜models.py  
+ ┃ ┣ 📜serializers.py  
+ ┃ ┣ 📜tests.py  
+ ┃ ┣ 📜urls.py  
+ ┃ ┣ 📜views.py  
+ ┃ ┗ 📜__init__.py  
+ ┣ 📂chat  
+ ┃ ┣ 📂migrations  
+ ┃ ┣ 📜admin.py  
+ ┃ ┣ 📜apps.py  
+ ┃ ┣ 📜consumers.py  
+ ┃ ┣ 📜models.py  
+ ┃ ┣ 📜routing.py  
+ ┃ ┣ 📜serializers.py  
+ ┃ ┣ 📜tests.py  
+ ┃ ┣ 📜views.py  
+ ┃ ┗ 📜__init__.py  
+ ┣ 📂media  
+ ┃ ┗ 📂profile_images  
+ ┣ 📂memorycard  
+ ┃ ┣ 📂migrations  
+ ┃ ┣ 📜admin.py  
+ ┃ ┣ 📜apps.py  
+ ┃ ┣ 📜models.py  
+ ┃ ┣ 📜permissions.py  
+ ┃ ┣ 📜serializers.py  
+ ┃ ┣ 📜tests.py  
+ ┃ ┣ 📜urls.py  
+ ┃ ┣ 📜views.py  
+ ┃ ┗ 📜__init__.py  
+ ┣ 📂study  
+ ┃ ┣ 📂migrations  
+ ┃ ┣ 📜admin.py  
+ ┃ ┣ 📜apps.py  
+ ┃ ┣ 📜models.py  
+ ┃ ┣ 📜permissions.py  
+ ┃ ┣ 📜serializers.py  
+ ┃ ┣ 📜tests.py  
+ ┃ ┣ 📜urls.py  
+ ┃ ┣ 📜views.py  
+ ┃ ┗ 📜__init__.py  
+ ┣ 📂studyus  
+ ┣ 📂templates  
+ ┃ ┗ 📂account  
+ ┃ ┃ ┗ 📂email  
+ ┃ ┃ ┃ ┣ 📜email_confirmation_message.html  
+ ┃ ┃ ┃ ┣ 📜email_confirmation_signup_message.html  
+ ┃ ┃ ┃ ┣ 📜email_confirmation_subject.txt  
+ ┃ ┃ ┃ ┣ 📜login_fail.html  
+ ┃ ┃ ┃ ┗ 📜login_success.html  
+ ┣ 📂venv  
+ ┣ 📜.env.dev  
+ ┣ 📜.env.prod  
+ ┣ 📜.gitignore  
+ ┣ 📜manage.py  
+ ┣ 📜README.md  
+ ┗ 📜requirements.txt  
+ 
 <br>
 
 ### 3.2 API 명세서
@@ -196,14 +263,200 @@ PW : testpw581
 - GitHub Link : [StudyUs-FE](https://github.com/Quartett/StudyUs-FE)
 
 ## 6. 메인 기능
-### 6.1. 회원 가입 시 이메일을 입력받고, 해당 이메일로 인증 메일을 받아 메일 내 링크 클릭 시 회원가입이 완료됨
-### 6.2. 인증 메일을 받지 못하였을 경우 재발송 버튼을 통해 인증 메일을 다시 요청하는 것이 가능
-### 6.3. 스터디 그룹에 가입하고 싶을 경우 기존 스터디 그룹에서 가입 가능함
-### 6.4. 스터디 그룹을 생성하고 싶을 경우 필요한 정보 (스터디 그룹 명, 카테고리, 난이도, 일정 등)을 입력 받아 생성
-### 6.5. 스터디 그룹의 멤버일 경우 그룹 내에서 댓글 생성이 가능합니다.
-### 6.6. 스터디 그룹을 생성한 그룹장일 경우에는 그룹 정보 수정이 가능합니다.
-### 6.7. 스터디 그룹 내에서 멤버들끼리 실시간 채팅이 가능합니다.
-### 6.8. 로그인한 사용자 별로 암기용 플래시 카드를 주제 별로 작성 및 실헹하여 암기 공부에 도움을 받을 수 있습니다.
+### 6.1. APP : accounts
+#### 6.1.1. 회원 가입 시 이메일을 입력받고, 해당 이메일로 인증 메일을 받아 메일 내 링크 클릭 시 회원가입이 완료됨
+- User 커스텀 모델 및 setting을 통해서 username을 사용하지 않고, email을 사용하였음.
+    ```python
+    # accounts/models.py
+    class StudyUsUser(AbstractBaseUser):
+    ...생략...
+    email = models.EmailField(max_length=255, unique=True)
+    
+    USERNAME_FIELD = 'email'
+    REQUIRED_FIELDS = [] 
+    ...생략...
+    ```
+    ```python
+    # settings.py
+    ...생략...
+    AUTH_USER_MODEL = "accounts.StudyUsUser"
+    ...생략...
+    ACCOUNT_ADAPTER = 'accounts.adapters.CustomAccountAdapter'
+    ACCOUNT_AUTHENTICATION_METHOD = 'email'
+    ACCOUNT_EMAIL_VERIFICATION = 'none'
+    ACCOUNT_UNIQUE_EMAIL = True
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
+    ...생략...
+    ```
+    #### [⬆️ accounts/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/models.py#L6C1-L64C38)
+- 이메일 인증의 경우 settings에서 all_auth 설정 및 view에서 ConfirmEmailView를 통해 구현하였음.
+    ```python
+    # settings.py
+    ...생략...
+    EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+    EMAIL_HOST = 'smtp.gmail.com'
+    EMAIL_PORT = 587
+    EMAIL_HOST_USER = env('EMAIL_HOST_USER') # 가입 인증 메일을 보낼 이메일
+    EMAIL_HOST_PASSWORD = env('EMAIL_HOST_PASSWORD') # 비밀번호(구글에서 앱 비밀번호 발급 필요)
+    EMAIL_USE_TLS = True
+    DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+    ACCOUNT_CONFIRM_EMAIL_ON_GET = True
+    ACCOUNT_EMAIL_REQUIRED = True
+    ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+    EMAIL_CONFIRMATION_AUTHENTICATED_REDIRECT_URL = '/'
+    ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
+    ACCOUNT_EMAIL_SUBJECT_PREFIX = '[studyus]'
+    ...생략...
+    ```
+    #### [⬆️ settings.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/studyus/settings.py#L234C1-L247C43)
+    ```python
+    # accounts/views.py
+    class ConfirmEmailView(APIView):
+    ...생략...
+    def get(self, *args, **kwargs):
+        self.object = confirmation = self.get_object()
+        confirmation.confirm(self.request)
+        return render(self.request, 'account/email/login_success.html')
+
+    def get_object(self, queryset=None):
+        key = self.kwargs['key']
+        email_confirmation = EmailConfirmationHMAC.from_key(key)
+        if not email_confirmation:
+            if queryset is None:
+                queryset = self.get_queryset()
+            try:
+                email_confirmation = queryset.get(key=key.lower())
+            except EmailConfirmation.DoesNotExist:
+                return render(self.request, 'account/email/login_fail.html')# 인증실패
+        return email_confirmation
+    ...생략...
+    ```
+    #### [⬆️ accounts/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/views.py#L18C1-L43C1)
+- urls.py에서 repath와 정규 표현식을 통해 이메일 인증 key를 받는 url을 작성하였음.
+    ```python
+    accounts/urls.py
+    urlpatterns = [
+        ...생략...
+        re_path(r'^account-confirm-email/$', VerifyEmailView.as_view(), name='account_email_verification_sent'),
+        re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
+        ...생략...
+    ]
+    ```
+    #### [⬆️ accounts/urls.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/urls.py#L11C1-L12C117)
+  
+### 6.1.2. 인증 메일을 받지 못하였을 경우 재발송 버튼을 통해 인증 메일을 다시 요청하는 것이 가능
+- urls.py에서 dj_rest_auth.registration의 기본 기능을 사용하여 인증 메일 재발송을 구현하였음.
+    ```python
+    # accounts/urls.py
+    urlpatterns = [
+        ...생략...
+        path('account/', include('dj_rest_auth.registration.urls')),
+        ...생략...
+    ]
+    ```
+    #### [⬆️ accounts/urls.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/urls.py#L7C5-L7C65)
+  
+### 6.2. APP : study
+#### 6.2.1. 스터디 그룹에 가입하고 싶을 경우 기존 스터디 그룹에서 가입 가능함
+- models.py에서 max_members 필드를 작성하여 최대 인원을 정하고, views.py에서 JoinMemberView에서 post 요청이 들어왔을 때 현재 스터디 그룹의 멤버 수를 확인하고 max_members를 초과하면 가입을 못하고, 그보다 적을 경우 요청한 유저를 해당 그룹에 작성합니다.
+    ```python
+    # study/models.py
+    class StudyGroup(models.Model):
+        ...생략...
+        max_members = models.IntegerField()
+        ...생략...
+    
+    class StudyMember(models.Model):
+        user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user')
+        study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='study_group')
+        role = models.IntegerField(default=0)
+    ...생략...
+    ```
+    #### [⬆️ study/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/models.py#L10C1-L61C73)
+    ```python
+    # study/views.py
+    class JoinMemberView(views.APIView):
+    ...생략...
+        def post(self, request):
+            ...생략...
+            if serializer.is_valid():
+                ...생략...
+                current_member_count = StudyMember.objects.filter(study_group=study_group).count()
+    
+                if current_member_count >= study_group.max_members:
+                    return response.Response({'message': '멤버 수가 가득 찼습니다.'}, status=status.HTTP_400_BAD_REQUEST)
+                member, created = StudyMember.objects.get_or_create(study_group=study_group, user=request.user, role=role)
+    ...생략...
+    ```
+    #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L143C1-L167C69)
+
+#### 6.2.2. 스터디 그룹을 생성하고 싶을 경우 필요한 정보 (스터디 그룹 명, 카테고리, 난이도, 일정 등)을 입력 받아 생성
+- models.py에서 StudyGroup에 작성한 필드를 입력 받아 views.py의 StudygroupCreateView를 통해 post 요청이 들어오면 생성이 됩니다.
+    ```python
+    # study/models.py
+    class Category(models.Model):
+        category_name = models.CharField()
+    
+    
+    class StudyGroup(models.Model):
+    
+        class Difficultys(models.IntegerChoices):
+        ...생략...
+    
+        class Weeks(models.IntegerChoices):
+        ...생략...
+        
+        thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
+        title = models.TextField()
+        level = models.IntegerField(choices=Difficultys.choices, default=Difficultys.EASY)
+        week_days = models.TextField(default='', blank=True)
+        content = models.TextField()
+        ...생략...
+        max_members = models.IntegerField()
+        category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
+        ...생략...
+    ```
+    #### [⬆️ study/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/models.py#L10C1-L49C26)
+    ```python
+    class StudygroupCreateView(generics.CreateAPIView):
+        queryset = StudyGroup.objects.all()
+        serializer_class = StudyGroupSerializer
+        ...생략...
+        
+        def post(self, request, *args, **kwargs):
+            return self.create(request, *args, **kwargs)
+        
+        def perform_create(self, serializer):
+            serializer.save()
+            ChatRoom.objects.create(study_group=serializer.instance)
+            StudyMember.objects.create(user=self.request.user, study_group=serializer.instance, role=1)
+    ```
+    #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L35C1-L50C100)
+  
+#### 6.2.3. 스터디 그룹의 멤버가 아니더라도 궁금한 것은 물어볼 수 있도록 그룹 내에서 댓글 작성이 가능합니다.
+- views의 CommentCreateView를 통해 댓글을 작성하며 permission을 IsAuthenticated를 적용하여 로그인한 유저라면 댓글 작성이 가능하도록 하였습니다.
+    ```python
+    class CommentCreateView(generics.CreateAPIView):
+        queryset = Comment.objects.all()
+        serializer_class = CommentSerializer
+        permission_classes = [permissions.IsAuthenticated]
+    
+        def perform_create(self, serializer):
+            serializer.save(author=self.request.user)
+    ```
+    #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L99C1-L106C1)
+  
+#### 6.2.4. 스터디 그룹을 생성한 그룹장일 경우에만 그룹 정보 수정이 가능합니다.
+- views의 StudygroupUpdateAPIView를 통해서 수정하며, permission을 MemberOnly로 적용함
+
+### 6.3. APP : chat
+
+#### 6.3.1. 스터디 그룹 내에서 멤버들끼리 실시간 채팅이 가능합니다.
+
+### 6.4. APP : memorycard
+
+#### 6.4.1. 로그인한 사용자 별로 암기용 플래시 카드를 주제 별로 작성 및 실헹하여 암기 공부에 도움을 받을 수 있습니다.
 
 <br>
 
