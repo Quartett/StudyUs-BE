@@ -149,16 +149,16 @@ PW : 비밀번호
 ## 4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도
 
 <div align="center">
-<img width="800" alt="MindMap" src=""><br>
-    - 기능 요구사항(마인드맵) - 이미지 수정 필요<br>
+<img width="800" alt="MindMap" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/ec3bade0-cf47-41d2-81fe-1954bf62b854"><br>
+    - 기능 요구사항(마인드맵)<br>
 <br>
 
-<img width="800" alt="FlowChart" src=""><br>
-    - 플로우 차트 - 이미지 수정 필요<br>
+<img width="100%" alt="FlowChart" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/80893502-47a1-42e5-b946-91cbadfc2455"><br>
+    - 플로우 차트<br>
 <br>
 
-<img width="800" alt="ERD" src=""><br>
-    - 데이터베이스 모델링(ERD 설계) - 이미지 수정 필요<br>
+<img width="800" alt="ERD" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/daebae1d-32a2-490a-83b3-b4ed5e33fbd5"><br>
+    - 데이터베이스 모델링(ERD 설계)<br>
 <br>
 
 <img width="800" alt="architecture" src=""><br>
@@ -171,8 +171,17 @@ PW : 비밀번호
 
 ### 5.1. 와이어프레임
 <div align="center">
-<img width="100%" alt="image" src="">
-이미지 수정 필요
+<img width="900px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f1de3c9e-1330-488d-8aac-1035cd7e0b6c">
+    
+|와이어프레임 페이지|Note|
+|-|:-|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/12e074b8-7eae-4a9c-9cf6-f9000367a54d">|메인페이지 - 로그인 전|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/04179273-10a2-48a1-92d9-79d029f79ef5">|로그인 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/d27c70a1-e67e-427d-aec2-82e84c429f03">|메인페이지 - 로그인 후|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/ac2f14ac-d7c5-4c07-9dfc-0459a3ca95a4">|스터디 생성 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/da598330-c441-44e9-b1bb-429e4c827fe5">|스터디 상세 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f4ffc805-9c29-4dab-a161-0ff986ba1b78">|스터디 그룹 채팅 페이지|
+
 </div>
 
 ### 5.2. 실제 UI
