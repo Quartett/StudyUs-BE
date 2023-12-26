@@ -29,7 +29,7 @@ class StudyUsUserManager(BaseUserManager):
         return user
 
 
-class StudyUsUser(AbstractBaseUser, PermissionsMixin):
+class StudyUsUser(AbstractBaseUser):
     profile_image = models.ImageField(upload_to='profile_images/', default='profile_images/default_profile.svg')
     nickname = models.CharField(max_length=20, unique=True, blank=True) 
     email = models.EmailField(max_length=255, unique=True)
