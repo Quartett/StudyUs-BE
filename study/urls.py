@@ -20,7 +20,7 @@ urlpatterns = [
     # 그룹 참가자 리스트
     path('<int:pk>/member/', views.MemberListView.as_view(), name='group-member' ), 
     # 그룹 참가자 상세보기
-    path('<int:pk>/member/delete', views.MemberDeleteView.as_view(), name='group-member-detail' ),
+    path('<int:pk>/member/delete/', views.MemberDeleteView.as_view(), name='group-member-detail' ),
     # 그룹 참가자 업데이트
-    path('<int:pk>/member/update', views.MemberUpdateView.as_view(), name='group-member-update' ),
+    path('<int:pk>/member/update/', views.MemberUpdateView.as_view(), name='group-member-update' ),
 ]

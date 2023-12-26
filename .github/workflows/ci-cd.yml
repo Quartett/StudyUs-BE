@@ -2,7 +2,7 @@ name: StudyUs CI/CD
 
 on:
   push:
-    branches: [ "dev" ]
+    branches: [ "main" ]
 
 jobs:
   deploy:
@@ -29,22 +29,22 @@ jobs:
           password: ${{ secrets.SERVER_PASSWORD }}
           script: |
             set -e
-            cd /home/ubuntu/dev/StudyUs-BE
-            git pull origin dev
+            cd /home/ubuntu/prod/StudyUs-BE
+            git pull origin main
 
-            echo "DEBUG='${{ secrets.DEBUG }}'" > ./.env.dev
-            echo "SECRET_KEY=\"${{ secrets.SECRET_KEY }}\"" >> ./.env.dev
-            echo "DATABASE_ENGINE=\"${{ secrets.DATABASE_ENGINE }}\"" >> ./.env.dev
-            echo "DATABASE_NAME=\"${{ secrets.DATABASE_NAME }}\"" >> ./.env.dev
-            echo "DATABASE_USER=\"${{ secrets.DATABASE_USER }}\"" >> ./.env.dev
-            echo "DATABASE_PASSWORD=\"${{ secrets.DATABASE_PASSWORD }}\"" >> ./.env.dev
-            echo "DATABASE_HOST=\"${{ secrets.DATABASE_HOST }}\"" >> ./.env.dev
-            echo "DATABASE_PORT=\"${{ secrets.DATABASE_PORT }}\"" >> ./.env.dev
-            echo "EMAIL_HOST_USER=\"${{ secrets.EMAIL_HOST_USER }}\"" >> ./.env.dev
-            echo "EMAIL_HOST_PASSWORD=\"${{ secrets.EMAIL_HOST_PASSWORD }}\"" >> ./.env.dev
+            echo "DEBUG='${{ secrets.DEBUG }}'" > ./.env.prod
+            echo "SECRET_KEY=\"${{ secrets.SECRET_KEY }}\"" >> ./.env.prod
+            echo "DATABASE_ENGINE=\"${{ secrets.DATABASE_ENGINE }}\"" >> ./.env.prod
+            echo "DATABASE_NAME=\"${{ secrets.DATABASE_NAME }}\"" >> ./.env.prod
+            echo "DATABASE_USER=\"${{ secrets.DATABASE_USER }}\"" >> ./.env.prod
+            echo "DATABASE_PASSWORD=\"${{ secrets.DATABASE_PASSWORD }}\"" >> ./.env.prod
+            echo "DATABASE_HOST=\"${{ secrets.DATABASE_HOST }}\"" >> ./.env.prod
+            echo "DATABASE_PORT=\"${{ secrets.DATABASE_PORT }}\"" >> ./.env.prod
+            echo "EMAIL_HOST_USER=\"${{ secrets.EMAIL_HOST_USER }}\"" >> ./.env.prod
+            echo "EMAIL_HOST_PASSWORD=\"${{ secrets.EMAIL_HOST_PASSWORD }}\"" >> ./.env.prod
 
             source venv/bin/activate
             pip install -r requirements.txt
-            sudo systemctl restart studyus-test
+            sudo systemctl restart daphne
             sudo systemctl restart gunicorn
             sudo systemctl restart nginx

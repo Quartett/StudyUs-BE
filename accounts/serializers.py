@@ -8,7 +8,7 @@ User = get_user_model()
 
 class RegisterSerializer(RestAuthRegisterSerializer):
     username = None
-    profile_image = serializers.ImageField(default='profile_images/default_profile_image.png')
+    profile_image = serializers.ImageField(default='profile_images/default_profile.svg')
     nickname = serializers.CharField(required=False, allow_blank=True)
     email = serializers.EmailField(required=True)
     password1 = serializers.CharField(write_only=True, style={'input_type': 'password'})
