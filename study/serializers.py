@@ -81,10 +81,11 @@ class StudyGroupSerializer(serializers.ModelSerializer):
     chat_room_id = serializers.SerializerMethodField()    
     comments = CommentSerializer(many=True, read_only=True)
     leader = serializers.SerializerMethodField()
+    category_name = serializers.SerializerMethodField()
 
     class Meta:
         model = StudyGroup
-        fields = ['id', 'thumbnail', 'title', 'level', 'week_days', 'category', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id', 'leader']
+        fields = ['id', 'thumbnail', 'title', 'level', 'week_days', 'category', 'category_name', 'content', 'created_at', 'updated_at', 'study_start_at', 'study_end_at', 'max_members', 'comments', 'chat_room_id', 'leader']
 
 
     def get_chat_room_id(self, obj):
@@ -99,3 +100,6 @@ class StudyGroupSerializer(serializers.ModelSerializer):
                 'profile_image': leader_info.profile_image.url if leader_info.profile_image else None
             }
         return None
+    
+    def get_category_name(self, obj):
+        return obj.category.category_name
