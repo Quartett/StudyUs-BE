@@ -14,7 +14,7 @@ from rest_framework.response import Response
 # 내부 파일 또는 라이브러리
 from .serializers import CommentSerializer, StudyGroupSerializer, MemberSerializer, UpdateMemberSerializer
 from .models import StudyGroup, Comment, StudyMember
-from .permissions import MemberOnly, IsOwnerOrReadOnly
+from .permissions import LeaderOnly, IsOwnerOrReadOnly
 
 User = get_user_model()
 
@@ -65,7 +65,7 @@ class StudygroupRetrieveAPIView(generics.RetrieveAPIView):
 class StudygroupUpdateAPIView(generics.UpdateAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
-    permission_classes = [MemberOnly]
+    permission_classes = [LeaderOnly]
     
     @extend_schema(
         summary='스터디그룹 수정하기',
@@ -84,7 +84,7 @@ class StudygroupUpdateAPIView(generics.UpdateAPIView):
 class StudygroupDestroyAPIView(generics.DestroyAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
-    permission_classes = [permissions.IsAuthenticated, MemberOnly]
+    permission_classes = [permissions.IsAuthenticated, LeaderOnly]
 
     @extend_schema(
         summary='스터디그룹 삭제하기',
@@ -218,7 +218,7 @@ class MemberDeleteView(views.APIView):
 
 
 class MemberUpdateView(views.APIView):
-    permission_classes = [permissions.IsAuthenticated, MemberOnly]
+    permission_classes = [permissions.IsAuthenticated, LeaderOnly]
     @extend_schema(
         summary='그룹장 위임',
         request=UpdateMemberSerializer,

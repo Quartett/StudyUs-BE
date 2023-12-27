@@ -2,7 +2,7 @@ from rest_framework import permissions
 from django.shortcuts import get_object_or_404
 from study.models import StudyGroup, StudyMember
 
-class MemberOnly(permissions.BasePermission):
+class LeaderOnly(permissions.BasePermission):
     """
     해당 스터디 그룹의 멤버에게만 접근을 허용하는 권한 클래스
     """
