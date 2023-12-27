@@ -25,7 +25,12 @@ SECRET_KEY = env('SECRET_KEY')
 #  배포 버전 시 수정 필요 #
 ######################
 DEBUG = env('DEBUG')
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = [
+    "studyus.kro.kr",
+    "studyus.kro.kr/",
+    "studyus.kro.kr/*",
+    "127.0.0.1",
+]
 ######################
 ######################
 

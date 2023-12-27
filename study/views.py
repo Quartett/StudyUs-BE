@@ -250,6 +250,7 @@ class MemberUpdateView(views.APIView):
 class ChatListView(generics.ListAPIView):
     queryset = StudyGroup.objects.all()
     serializer_class = StudyGroupSerializer
+    permission_classes = [permissions.IsAuthenticated]
 
     def get_queryset(self):
         return super().get_queryset().filter(study_group__user=self.request.user)
