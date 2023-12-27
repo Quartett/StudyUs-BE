@@ -3,9 +3,9 @@
 - 스터디원 모집 기능 및 실시간 채팅, 개인용 암기 플래시 카드 기능을 지원하는 웹 서비스입니다.
 
 |Name|남영훈|오정배|윤재우|이수민|
-|:-:|:-|:-|:-|:-|
-| Profile  |-|-|-|-|
-| Position |Frontend & Backend Develop & CICD|Frontend & Backend Develop & UIUX|Frontend & Backend Develop & UIUX|Frontend & Backend Develop & UIUX|
+|:-:|:-:|:-:|:-:|:-:|
+| Profile  |<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/c0ff7054-39b1-42e5-a996-27471d41540d">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/8733be77-4d9c-42a1-a946-320c8644d785">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/d6583404-66a5-4c60-9345-c3d97527c733">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/a231294d-4391-4885-a580-8089adcfbf8d">|
+| Position |Architect<br>Frontend Develop<br>Backend Develop<br>CICD|팀장<br>Frontend Develop<br>Backend Develop<br>UIUX|Frontend Develop<br>Backend Develop<br>기능 요구사항 분석|Frontend Develop<br>Backend Develop<br>UIUX<br>ERD, API 명세서 작성|
 | GitHub |[Eric](https://github.com/Nam-Younghoon)|[OH_JUNGBAE](https://github.com/Alexmint001)|[bardnia](https://github.com/bardnia)|[su2minig](https://github.com/su2minig)|
 
 ## 목차
@@ -13,12 +13,12 @@
 [1. 목표](#1-목표)<br>
 [2. 개발 환경 및 배포 링크](#2-개발-환경-및-배포-링크)<br>
 [3. 프로젝트 구조와 개발 일정](#3-프로젝트-구조와-개발-일정)<br>
-[4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도](#4-요구사항-시각화,-데이터베이스-모델링(ERD),-배포-아키텍처-구성도)<br>
+[4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도](#4-요구사항-시각화,-데이터베이스-모델링ERD,-배포-아키텍처-구성도)<br>
 [5. UI](#5-UI)<br>
 [6. 메인 기능](#6-메인-기능)<br>
 [7. 추가 기능](#7-추가-기능)<br>
 [8. 개발하며 경험한 오류와 해결방법](#8-개발하며-경험한-오류와-해결방법)<br>
-[9. 프로젝트 소감(어려웠던 점 & 배운 점)](#9-프로젝트-소감(어려웠던-점-&-배운-점))<br>
+[9. 프로젝트 소감(어려웠던 점 & 배운 점)](#9-프로젝트-소감어려웠던-점-&-배운-점)<br>
 <br>
 
 ## 1. 목표
@@ -624,8 +624,8 @@ PW : testpw581
 
 ## 8. 개발하며 경험한 오류와 해결방법
 ### 8.1. simplejwt과 dj-rest-auth 설정 후 로그인 하였을 때 access_token만 받고, refresh_token을 못 받는 상황 발생
-- 해결방법
-    - settings.py의 'JWT_AUTH_HTTPONLY': 설정을 False로 설정하여 해결하였습니다.
+#### 해결방법
+- settings.py의 'JWT_AUTH_HTTPONLY': 설정을 False로 설정하여 해결하였습니다.
 ```
 Note [공식문서] 
 JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refresh_token이 전송되지 않습니다. False로 설정하면 전송됩니다.
@@ -633,13 +633,43 @@ JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refr
 #### [⬆️ dj-rest-auth 공식문서](https://dj-rest-auth.readthedocs.io/en/latest/configuration.html#configuration)
 <br>
 
-#### Why?
+#### ?
 - **True로 설정할 경우**
     - JWT을 HTTPOnly 쿠키로 보내게 되는데 이는 보안상의 이유로 클라이언트 스크립트가 쿠키에 직접 접근하는 것이 불가능합니다.
     - 이는 주로 refresh_token이 필요한 상황에서 문제가 생길 수 있는데, 그 이유는 refresh_token은 보통 클라이언트에서 JWT를 갱신하기 위해 사용되지만, HTTPOnly 쿠키로 JWT를 보내게 되면 클라이언트에서 refresh_token에 접근할 수 없기 때문입니다.
 - **False로 설정할 경우**
     - dj-rest-auth는 JWT를 HTTPOnly가 아닌 쿠키로 보내게 되며 이는 클라이언트 스크립트가 쿠키에 직접 접근하는 것이 가능하므로, refresh_token을 사용하여 JWT를 갱신하는 것이 가능합니다.
-    
+
+### 8.2. Router로 생성한 URL로 API 요청 시 404 Error 발생
+- 해결방법
+    - 코드 순서를 바꾼다.
+        ```python
+        memorycard/urls.py
+        # 에러 발생 코드
+        router = DefaultRouter()
+        router.register(r'', MemoryCardViewSet, basename="memorycard")
+        router.register(r'subject', SubjectViewSet, basename="memorycard")
+        
+        # 해결 코드
+        router = DefaultRouter()
+        router.register(r'subject', SubjectViewSet, basename="memorycard")
+        router.register(r'', MemoryCardViewSet, basename="memorycard")
+        ```
+        #### [⬆️ memorycard/urls.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/90b488c684bcf1761d00a6a086f57afc9ff45a90/memorycard/urls.py#L5C1-L7C63)
+    - ViewSet에서 lookup_value_regex 속성을 통해 적용할 정규표현식을 바꾼다
+        ```python
+        memorycard/views.py
+        class MemoryCardViewSet(ModelViewSet):
+            queryset = MemoryCard.objects.all()
+            serializer_class = MemoryCardSerailizer
+            permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
+            lookup_value_regex = r'\d+'
+        ```
+- 왜?
+    - rest_framework.routers의 Router들은 내부적으로 정해진 정규 표현식이 있습니다.
+    - ViewSet에서 /memorycard/ URL에 대한 url pattern의 pk 정규 표현식이 숫자 패턴이 아니라 문자열 패턴으로 등록이 되고 있었습니다.
+    - 즉, /memorycard/subject/의 요청은 memorycard 리소스에 대한 detail 요청으로 처리되어 pk=”subject”로 처리되었고 해당 pk를 찾을 수 없어 404 에러가 발생
+
 <br>
 
 ## 9. 프로젝트 소감(어려웠던 점 & 배운 점)
