@@ -275,7 +275,7 @@ PW : testpw581
 ## 6. 메인 기능
 ### 6.1. APP : accounts
 #### 6.1.1. 회원 가입 시 이메일을 입력받고, 해당 이메일로 인증 메일을 받아 메일 내 링크 클릭 시 회원가입이 완료됨
-- User 커스텀 모델 및 setting을 통해서 username을 사용하지 않고, email을 사용하였음.
+- User 커스텀 모델 및 setting을 통해서 username을 사용하지 않고, email을 사용하였습니다.
     ```python
     # accounts/models.py
     class StudyUsUser(AbstractBaseUser):
@@ -301,7 +301,7 @@ PW : testpw581
     ```
     #### [⬆️ accounts/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/models.py#L6C1-L64C38)
     <br>
-- 이메일 인증의 경우 settings에서 all_auth 설정 및 view에서 ConfirmEmailView를 통해 구현하였음.
+- 이메일 인증의 경우 settings에서 all_auth 설정 및 view에서 ConfirmEmailView를 통해 구현하였습니다.
     ```python
     # settings.py
     ...생략...
@@ -347,7 +347,7 @@ PW : testpw581
     ```
     #### [⬆️ accounts/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/views.py#L18C1-L43C1)
     <br>
-- urls.py에서 repath와 정규 표현식을 통해 이메일 인증 key를 받는 url을 작성하였음.
+- urls.py에서 repath와 정규 표현식을 통해 이메일 인증 key를 받는 url을 작성하였습니다.
     ```python
     accounts/urls.py
     urlpatterns = [
@@ -361,7 +361,7 @@ PW : testpw581
     <br>
   
 ### 6.1.2. 인증 메일을 받지 못하였을 경우 재발송 버튼을 통해 인증 메일을 다시 요청하는 것이 가능
-- urls.py에서 dj_rest_auth.registration의 기본 기능을 사용하여 인증 메일 재발송을 구현하였음.
+- urls.py에서 dj_rest_auth.registration의 기본 기능을 사용하여 인증 메일 재발송을 구현하였습니다.
     ```python
     # accounts/urls.py
     urlpatterns = [
@@ -497,8 +497,8 @@ PW : testpw581
 
 ### 6.3. APP : memorycard
 
-#### 6.3.1. 로그인한 사용자 별로 암기용 플래시 카드를 주제 별로 작성 및 실헹하여 암기 공부에 도움을 받을 수 있습니다.
-- models.py에 Subject와 MemoryCard를 작성하고 1:N 관계로 적용함(ForiegnKey)으로써 하나의 Subject가 여러개의 MemoryCard를 가질 수 있도록 하였습니다.
+#### 6.3.1. 로그인한 사용자가 암기용 플래시 카드를 주제별로 작성 및 실행하여 암기 공부에 도움을 받을 수 있습니다
+- models.py에 Subject와 MemoryCard를 작성하고 1:N 관계로 적용함(ForeignKey)으로서 하나의 Subject가 여러개의 MemoryCard를 가질 수 있도록 하였습니다.
     ```python
     # memorycard/models.py
     class Subject(models.Model):
@@ -709,7 +709,7 @@ JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refr
 #### 왜?
 - rest_framework.routers의 Router들은 내부적으로 정해진 정규 표현식이 있습니다.
 - ViewSet에서 /memorycard/ URL에 대한 url pattern의 pk 정규 표현식이 숫자 패턴이 아니라 문자열 패턴으로 등록이 되고 있었습니다.
-- 즉, /memorycard/subject/의 요청은 memorycard 리소스에 대한 detail 요청으로 처리되어 pk=”subject”로 처리되었고 해당 pk를 찾을 수 없어 404 에러가 발생
+- 즉, /memorycard/subject/의 요청은 memorycard 리소스에 대한 detail 요청으로 처리되어 pk=”subject”로 처리되었고 해당 pk를 찾을 수 없어 404 에러가 발생하였습니다.
 
 <br>
 
