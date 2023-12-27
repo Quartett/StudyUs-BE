@@ -23,7 +23,7 @@ class StudyGroup(models.Model):
         토 = 6
         일 = 7
     
-    thumbnail = models.ImageField(upload_to = 'study_images/', blank=True)
+    thumbnail = models.ImageField(upload_to = 'study_images/', blank=True, default='profile_images/default_study_thumbnail.png')
     title = models.TextField()
     level = models.IntegerField(choices=Difficultys.choices, default=Difficultys.EASY)
     week_days = models.TextField(default='', blank=True)
