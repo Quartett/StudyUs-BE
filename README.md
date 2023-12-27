@@ -13,12 +13,12 @@
 [1. 목표](#1-목표)<br>
 [2. 개발 환경 및 배포 링크](#2-개발-환경-및-배포-링크)<br>
 [3. 프로젝트 구조와 개발 일정](#3-프로젝트-구조와-개발-일정)<br>
-[4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도](#4-요구사항-시각화,-데이터베이스-모델링ERD,-배포-아키텍처-구성도)<br>
+[4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도](#4-요구사항-시각화,-데이터베이스-모델링erd,-배포-아키텍처-구성도)<br>
 [5. UI](#5-UI)<br>
 [6. 메인 기능](#6-메인-기능)<br>
 [7. 추가 기능](#7-추가-기능)<br>
 [8. 개발하며 경험한 오류와 해결방법](#8-개발하며-경험한-오류와-해결방법)<br>
-[9. 프로젝트 소감(어려웠던 점 & 배운 점)](#9-프로젝트-소감어려웠던-점-&-배운-점)<br>
+[9. 프로젝트 소감(어려웠던 점 & 배운 점)](#9-프로젝트-소감어려웠던-점--배운-점)<br>
 <br>
 
 ## 1. 목표
@@ -36,7 +36,7 @@
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
-    <img src="https://img.shields.io/badge/Bootstrapap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"/>
 </div>
 
 #### [BackEnd]
