@@ -459,21 +459,21 @@ PW : testpw581
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L99C1-L106C1)
     <br>
 #### 6.2.4. 스터디 그룹을 생성한 그룹장일 경우에만 그룹 정보 수정이 가능합니다.
-- views의 StudygroupUpdateAPIView를 통해서 수정하며, permission을 MemberOnly로 적용하였습니다.
+- views의 StudygroupUpdateAPIView를 통해서 수정하며, permission을 LeaderOnly로 적용하였습니다.
     ```python
     # study/views.py
     class StudygroupUpdateAPIView(generics.UpdateAPIView):
         queryset = StudyGroup.objects.all()
         serializer_class = StudyGroupSerializer
-        permission_classes = [MemberOnly]
+        permission_classes = [LeaderOnly]
         ...생략...
     ```
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/3c09f74fcd957792ae28fcacc9178569835bcb41/study/views.py#L65C1-L81C67)
     <br>
-- MemberOnly는 요청의 종류에 따라 스터디그룹의 일반 멤버에게만 권한을 줄지, 스터디 그룹장에게만 권한을 줄지 설정하는 클래스입니다.
+- LeaderOnly는 요청의 종류에 따라 스터디그룹의 일반 멤버에게만 권한을 줄지, 스터디 그룹장에게만 권한을 줄지 설정하는 클래스입니다.
     ```python
     # study/permissions.py
-    class MemberOnly(permissions.BasePermission):
+    class LeaderOnly(permissions.BasePermission):
     
     def has_permission(self, request, view):
         ...생략...
@@ -623,7 +623,23 @@ PW : testpw581
 <br>
 
 ## 8. 개발하며 경험한 오류와 해결방법
+### 8.1. simplejwt과 dj-rest-auth 설정 후 로그인 하였을 때 access_token만 받고, refresh_token을 못 받는 상황 발생
+- 해결방법
+    - settings.py의 'JWT_AUTH_HTTPONLY': 설정을 False로 설정하여 해결하였습니다.
+```
+Note [공식문서] 
+JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refresh_token이 전송되지 않습니다. False로 설정하면 전송됩니다.
+```
+#### [⬆️ dj-rest-auth 공식문서](https://dj-rest-auth.readthedocs.io/en/latest/configuration.html#configuration)
+<br>
 
+#### Why?
+- **True로 설정할 경우**
+    - JWT을 HTTPOnly 쿠키로 보내게 되는데 이는 보안상의 이유로 클라이언트 스크립트가 쿠키에 직접 접근하는 것이 불가능합니다.
+    - 이는 주로 refresh_token이 필요한 상황에서 문제가 생길 수 있는데, 그 이유는 refresh_token은 보통 클라이언트에서 JWT를 갱신하기 위해 사용되지만, HTTPOnly 쿠키로 JWT를 보내게 되면 클라이언트에서 refresh_token에 접근할 수 없기 때문입니다.
+- **False로 설정할 경우**
+    - dj-rest-auth는 JWT를 HTTPOnly가 아닌 쿠키로 보내게 되며 이는 클라이언트 스크립트가 쿠키에 직접 접근하는 것이 가능하므로, refresh_token을 사용하여 JWT를 갱신하는 것이 가능합니다.
+    
 <br>
 
 ## 9. 프로젝트 소감(어려웠던 점 & 배운 점)
