@@ -26,9 +26,8 @@ SECRET_KEY = env('SECRET_KEY')
 ######################
 DEBUG = env('DEBUG')
 ALLOWED_HOSTS = [
-    "studyus.kro.kr",
-    "studyus.kro.kr/",
-    "studyus.kro.kr/*",
+    "https://studyus.kro.kr/",
+    "https://studyus.kro.kr/*",
     "127.0.0.1",
 ]
 ######################
