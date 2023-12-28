@@ -272,6 +272,53 @@ PW : testpw581
 ### 5.2. 실제 UI
 - GitHub Link : [StudyUs-FE](https://github.com/Quartett/StudyUs-FE)
 
+<div align="center">
+    
+|||
+|:-:|:-:|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/8dfc42fd-6c98-4d64-b04b-69783903429e">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/679ba97a-924b-4718-9dde-5d09a914eb03">|
+|01. 로그인 페이지|02. 회원가입 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/d4a73153-ce17-477f-b9f3-41097d4b6ce1">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/6dc70f9a-0535-4179-aad7-8ed51808a47d">|
+|03. 프로필 페이지|04. 프로필 수정 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/667665b9-17b3-436e-8631-ef06af790710">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/0b3bfc52-940a-4fa5-87e8-7ae83c7f86e5">|
+|05. 비밀번호 변경 페이지|06. 메인 페이지 (로그인 전)|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f369768c-9c09-42f4-beab-6ac5113a9a2d">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/d12f09af-00a9-4619-86ae-c61f8dc2651f">|
+|07. 메인 페이지 (로그인 후)|08. 스터디 생성 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/dce3f18c-6d91-4939-a25d-3db29c566237">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/cf38d5e4-4b14-4906-bdbe-04593e9d0747">|
+|09. 스터디 상세 페이지(스터디 멤버 X + 비로그인)|10. 스터디 상세 페이지(스터디 멤버O)|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f232f791-d944-433f-9561-6fa40a5a495e">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/a327ce60-4626-49f0-9b1b-073f5939cf55">|
+|11. 스터디 상세 페이지(스터디그룹장)|12. 스터디 수정 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/6eabc0eb-ea1f-42ba-b16c-032d127bf0d2">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/eb6b62ff-ccf9-42a9-9d78-41fa50ec21d5">|
+|13. 실시간 채팅 페이지|14. 암기 카드 목록 페이지(주제 X)|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/5fb1456b-e096-48e3-9f4d-916b5243e3b3">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/bb2967f4-959c-4b52-95f6-f51db8c23f62">|
+|15. 암기 카드 목록 페이지(주제 O)|16. 암기 카드 주제 작성 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/133d40d5-7e6c-4bec-aa73-ff1fb4b04146">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f9cf2e94-ea1a-4161-ae3d-d01851c7cece">|
+|17. 암기 카드 목록 페이지(카드 X)|18. 암기 카드 목록 페이지(카드  O)|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/7633979c-8a92-4ced-a20c-65e7f8ee5e33">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/715b28e1-79ad-4b17-afed-6bbb7bc40c95">|
+|19. 암기 카드 작성 페이지|20. 암기 카드 수정 페이지|
+|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/2bdf0979-3569-4120-9ebd-daa1ffc478ff">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/dbc71440-a828-412b-8c60-255f625fea22">|
+|21. 암기 카드 재생 페이지|22. 암기 카드 중요 표시 페이지|
+
+</div>
+
+### 5.3. 시연
+<div align="center">
+    
+|시연 gif|note|
+|:-:|:-|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/6ff06da0-0c7f-47a6-a8c9-34af0429a155">|회원가입과 이메일 인증 후 로그인 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/07b91bb6-55b0-4216-92da-2fbd49103bac">|프로필 페이지와 프로필 수정 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/25a89c1a-0320-4674-83c3-476082d331c7">|스터디 그룹 생성 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/80382e5c-4623-42d2-9570-cdcd82a7e980">|스터디 그룹 수정 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/9db20365-5bb6-41e1-88b6-0e41a21dfb0b">|스터디 그룹 가입 및 댓글 작성 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/4edf5d22-df55-4453-890f-8c987fa5222b">|댓글 수정 및 삭제 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/bba7c891-7c3f-41b4-9f7e-5089f85f313a">|실시간 채팅 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/9c13800d-9c81-4f97-9757-d989f42022d9">|스터디 탈퇴 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e821b15d-3f0a-4945-b6b5-47ccf5e5bc6d">|암기카드 주제 및 카드 생성 과정|
+|<img width="600px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/35f495c8-cd89-4076-b06e-5f2524f62b4c">|암기카드 실행 및 중요 표시 별도 조회 과정|
+
+</div>
+
 ## 6. 메인 기능
 ### 6.1. APP : accounts
 #### 6.1.1. 회원 가입 시 이메일을 입력받고, 해당 이메일로 인증 메일을 받아 메일 내 링크 클릭 시 회원가입이 완료됨
@@ -654,30 +701,31 @@ JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refr
 
 ### 8.2. dj-rest-auth에서 참조하는 username을 없애려고 할 때 username이 없다고 하는 에러메세지 발생
 #### 해결방법
-- AbstractUser 모델을 사용하지 말고 AbstractBaseUser 모델을 사용하고 필요한 필드들을 직접 정의
-- settings.py에서 ACCOUNT_USER_MODEL_USERNAME_FIELD 설정을 none으로 설정
+- AbstractUser 모델을 사용하지 말고 AbstractBaseUser 모델을 사용하고 필요한 필드들을 직접 정의하였습니다.
+- settings.py에서 ACCOUNT_USER_MODEL_USERNAME_FIELD 설정을 None으로 설정하였습니다.
     ```python
     # settings.py
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
     ```
 #### 왜?
-- AbstractUser를 상속받아 유저를 커스텀 하였기 때문에 username 필드를 완전히 제거하지 못하여 발생한 오류
-- default값으로 username을 사용하지만, 모델에서는 사용하지않아 생기는 오류
+- AbstractUser를 상속받아 유저를 커스텀 하였기 때문에 username 필드를 완전히 제거하지 못하여 발생한 오류입니다.
+- default값으로 username을 사용하지만, 모델에서는 사용하지 않아 생기는 오류입니다.
 
 <br>
 
 ### 8.3. model에서 blank=True를 적용하였으나, 클라이언트에서 요청 시 nikcname 필드가 blank일 수 없다는 메세지 발생
 #### 해결방법
-- serializers에서도 allow_blank=True를 설정
+- serializers에서도 allow_blank=True를 설정하였습니다.
     ```python
+    # accounts/serializers.py
     nickname = serializers.CharField(required=False, allow_blank=True)
     ```
     #### [⬆️ accounts/serializers.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/90b488c684bcf1761d00a6a086f57afc9ff45a90/accounts/serializers.py#L12C5-L12C71)
 
 #### 왜?
-- 모델의 blank=True는 해당 필드가 데이터베이스에 저장될 때 빈 값이 허용됨을 의미(데이터베이스 레벨에서의 유효성 검사) 
+- 모델의 blank=True는 해당 필드가 데이터베이스에 저장될 때 빈 값이 허용됨을 의미하기 때문입니다.(데이터베이스 레벨에서의 유효성 검사) 
 - 시리얼라이저에서 allow_blank=True를 설정해야만 클라이언트로부터 빈 문자열을 받았을 때 시리얼라이저의 유효성 검사를 통과할 수 있습니다.(입력 데이터의 유효성 검사)
-- allow_blank=True를 설정하지 않을 경우 빈 값을 유효하지 않은 것으로 간주하고 오류 메시지를 반환
+- allow_blank=True를 설정하지 않을 경우 빈 값을 유효하지 않은 것으로 간주하고 오류 메시지를 반환합니다.
 
 <br>
 
@@ -709,13 +757,13 @@ JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refr
 #### 왜?
 - rest_framework.routers의 Router들은 내부적으로 정해진 정규 표현식이 있습니다.
 - ViewSet에서 /memorycard/ URL에 대한 url pattern의 pk 정규 표현식이 숫자 패턴이 아니라 문자열 패턴으로 등록이 되고 있었습니다.
-- 즉, /memorycard/subject/의 요청은 memorycard 리소스에 대한 detail 요청으로 처리되어 pk=”subject”로 처리되었고 해당 pk를 찾을 수 없어 404 에러가 발생
+- 즉, /memorycard/subject/의 요청은 memorycard 리소스에 대한 detail 요청으로 처리되어 pk=”subject”로 처리되었고 해당 pk를 찾을 수 없어 404 에러가 발생하였습니다.
 
 <br>
 
 ### 8.5. DB에 데이터 입력 시, Unique 위반에 대한 오류
 #### 해결방법
-- serializer 클래스 내부에서 validate 메서드를 사용하여 검증을 진행하고 오류메시지 지정하기
+- serializers.py 클래스 내부에서 validate 메서드를 사용하여 검증을 진행하고 오류메시지 지정하기
     ```python
     from rest_framework import serializers
 
