@@ -4,8 +4,8 @@
 
 |Name|남영훈|오정배|윤재우|이수민|
 |:-:|:-:|:-:|:-:|:-:|
-| Profile  |<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/c0ff7054-39b1-42e5-a996-27471d41540d">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/8733be77-4d9c-42a1-a946-320c8644d785">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/d6583404-66a5-4c60-9345-c3d97527c733">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/a231294d-4391-4885-a580-8089adcfbf8d">|
-| Position |Architect<br>Frontend Develop<br>Backend Develop<br>CICD|팀장<br>Frontend Develop<br>Backend Develop<br>UIUX|Frontend Develop<br>Backend Develop<br>기능 요구사항 분석|Frontend Develop<br>Backend Develop<br>UIUX<br>ERD, API 명세서 작성|
+| Profile  |<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/c0ff7054-39b1-42e5-a996-27471d41540d">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/8733be77-4d9c-42a1-a946-320c8644d785">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/cc5a726d-b311-41cc-948c-3d82bd833b99">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/738505b1-7dd8-4fd9-8cff-cc9218c950a1">|
+| Position |Architect<br>Frontend Develop<br>Backend Develop<br>CICD|팀장<br>Frontend Develop<br>Backend Develop<br>UIUX|Frontend Develop<br>Backend Develop<br>기능 요구사항 분석|Frontend Develop<br>Backend Develop<br>ERD, API 명세서 작성<br>UIUX|
 | GitHub |[Eric](https://github.com/Nam-Younghoon)|[OH_JUNGBAE](https://github.com/Alexmint001)|[bardnia](https://github.com/bardnia)|[su2minig](https://github.com/su2minig)|
 
 ## 목차
@@ -13,12 +13,12 @@
 [1. 목표](#1-목표)<br>
 [2. 개발 환경 및 배포 링크](#2-개발-환경-및-배포-링크)<br>
 [3. 프로젝트 구조와 개발 일정](#3-프로젝트-구조와-개발-일정)<br>
-[4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도](#4-요구사항-시각화,-데이터베이스-모델링ERD,-배포-아키텍처-구성도)<br>
+[4. 요구사항 시각화, 데이터베이스 모델링(ERD), 배포 아키텍처 구성도](#4-요구사항-시각화,-데이터베이스-모델링erd,-배포-아키텍처-구성도)<br>
 [5. UI](#5-UI)<br>
 [6. 메인 기능](#6-메인-기능)<br>
 [7. 추가 기능](#7-추가-기능)<br>
 [8. 개발하며 경험한 오류와 해결방법](#8-개발하며-경험한-오류와-해결방법)<br>
-[9. 프로젝트 소감(어려웠던 점 & 배운 점)](#9-프로젝트-소감어려웠던-점-&-배운-점)<br>
+[9. 프로젝트 소감(어려웠던 점 & 배운 점)](#9-프로젝트-소감어려웠던-점--배운-점)<br>
 <br>
 
 ## 1. 목표
@@ -36,7 +36,7 @@
     <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=html5&logoColor=white"/>
     <img src="https://img.shields.io/badge/CSS3-1572B6?style=flat-square&logo=css3&logoColor=white"/>
     <img src="https://img.shields.io/badge/JavaScript-F7DF1E?style=flat-square&logo=javascript&logoColor=black"/>
-    <img src="https://img.shields.io/badge/Bootstrapap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Bootstrap-7952B3?style=flat-square&logo=bootstrap&logoColor=white"/>
 </div>
 
 #### [BackEnd]
@@ -56,18 +56,23 @@
     <img src="https://img.shields.io/badge/GitHub-181717?style=flat-square&logo=GitHub&logoColor=white"/>
 </div>
 
+### 2.3 협업 도구
+<div>
+    <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=notion&logoColor=white"/>
+    <img src="https://img.shields.io/badge/Discord-5865F2?style=flat-square&logo=discord&logoColor=white"/>
+</div>
 
 <br>
 
 ### 2.2 배포 Link<br>
-- #### [StudyUs-FE](https://studyus.kro.kr/)
-<details>
-<summary>테스트용 ID 및 PW</summary>
-<div markdown="1">
-ID : quarttet581@gmail.com<br>
-PW : testpw581
-</div>
-</details>
+<img width="1000" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/05647483-449d-439f-959c-f061ecc5b3c4">
+
+- #### [StudyUs](https://studyus.kro.kr/)
+- #### 테스트용 ID 및 PW
+    ```
+    ID : quarttet581@gmail.com
+    PW : testpw581
+    ```
 
 ## 3. 프로젝트 구조와 개발 일정
 
@@ -143,55 +148,59 @@ PW : testpw581
 <br>
 
 ### 3.2 API 명세서
-[StudyUs-Swagger](https://api-studyus.kro.kr/api/schema/swagger-ui/#/)
+<img width="100%" alt="NotionTimeline" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/7cb142fc-fb43-4186-8d48-122907785861"><br> 
+    
+- #### [StudyUs-Swagger](https://api-studyus.kro.kr/api/schema/swagger-ui/#/)
+    
+<br>
 
 #### accounts
 
-|App|URL|HTTP Method|HTML File Name|Note|Login|
-|:-:|:-|:-:|:-|:-:|:-:|
-|accounts|join/|POST|join.html|회원가입|-|
-|accounts|login/|POST|login.html|로그인|-|
-|accounts|user/|GET|profile.html|프로필 조회|O|
-|accounts|user/|PATCH|profile_edit.html|프로필 수정|O|
-|accounts|user/delete/|DELETE|-|회원 탈퇴|O|
-|accounts|token/verify/|POST|-|토큰 유효성 검증|O|
-|accounts|token/refresh/|POST|-|토큰 재발급|O|
-|accounts|account-confirm-email/|POST|-|인증 메일 발송|-|
-|accounts|account-confirm-email/{key}/|GET|-|이메일 인증|-|
-|accounts|account/resend-email/|POST|-|인증 메일 재발송|-|
-|accounts|password/change/|POST|change_password.html|비밀번호 변경|O|
+|App|URL|HTTP Method|Note|Login|
+|:-:|:-|:-:|:-|:-:|
+|accounts|join/|POST|회원가입|-|
+|accounts|login/|POST|로그인|-|
+|accounts|user/|GET|프로필 조회|O|
+|accounts|user/|PATCH|프로필 수정|O|
+|accounts|user/delete/|DELETE|회원 탈퇴|O|
+|accounts|token/verify/|POST|토큰 유효성 검증|O|
+|accounts|token/refresh/|POST|토큰 재발급|O|
+|accounts|account-confirm-email/|POST|인증 메일 발송|-|
+|accounts|account-confirm-email/{key}/|GET|이메일 인증|-|
+|accounts|account/resend-email/|POST|인증 메일 재발송|-|
+|accounts|password/change/|POST|비밀번호 변경|O|
 
 #### study
 
-|App|URL|HTTP Method|HTML File Name|Note|Login|Author|Member|
-|:-:|:-|:-:|:-|:-:|:-:|:-:|:-:|
-|study|create/|POST|studygroup_create.html|스터디그룹 생성|O|-|-|
-|study|join/|POST|-|스터디그룹 참가|O|-|-|
-|study|/|GET|index.html|스터디그룹 리스트 조회|-|-|-|
-|study|{id}/|GET|studygroup_detail.html|스터디그룹 상세 조회|-|-|-|
-|study|{id}/update/|PATCH|studygroup_edit.html|스터디그룹 수정|O|O|O|
-|study|{id}/delete/|DELETE|-|스터디 그룹 삭제|O|O|O|
-|study|{id}/member/|GET|-|스터디그룹 멤버 리스트 조회|-|-|-|
-|study|{id}/member/delete/|DELETE|-|스터디그룹 탈퇴|O|-|O|
-|study|{id}/member/update/|PATCH|-|스터디그룹 그룹장 위임|O|O|O|
-|study|{id}/comments/|POST|-|댓글 작성|O|-|-|
-|study|{id}/comments/|GET|-|댓글 리스트 조회|-|-|-|
-|study|{id}/comments/{id}/update/|PATCH|-|댓글 수정|O|O|-|
-|study|{id}/comments/{id}/delete/|DELETE|-|댓글 삭제|O|O|-|
+|App|URL|HTTP Method|Note|Login|Author|Member|
+|:-:|:-|:-:|:-|:-:|:-:|:-:|
+|study|create/|POST|스터디그룹 생성|O|-|-|
+|study|join/|POST|스터디그룹 참가|O|-|-|
+|study|/|GET|스터디그룹 리스트 조회|-|-|-|
+|study|{id}/|GET|스터디그룹 상세 조회|-|-|-|
+|study|{id}/update/|PATCH|스터디그룹 수정|O|O|O|
+|study|{id}/delete/|DELETE|스터디 그룹 삭제|O|O|O|
+|study|{id}/member/|GET|스터디그룹 멤버 리스트 조회|-|-|-|
+|study|{id}/member/delete/|DELETE|스터디그룹 탈퇴|O|-|O|
+|study|{id}/member/update/|PATCH|스터디그룹 그룹장 위임|O|O|O|
+|study|{id}/comments/|POST|댓글 작성|O|-|-|
+|study|{id}/comments/|GET|댓글 리스트 조회|-|-|-|
+|study|{id}/comments/{id}/update/|PATCH|댓글 수정|O|O|-|
+|study|{id}/comments/{id}/delete/|DELETE|댓글 삭제|O|O|-|
 
 #### memorycard
 
-|App|URL|HTTP Method|HTML File Name|Note|Login|
-|:-:|:-|:-:|:-:|:-|:-:|
-|memorycard|/|GET|memorycard.html|암기 카드 전체 리스트 조회|O|
-|memorycard|/|POST|-|암기 카드 생성|O|
-|memorycard|{id}/|GET|memorycard_detail.html|암기 카드 상세 내역 조회|O|
-|memorycard|{id}/|PATCH|-|암기 카드 수정|O|
-|memorycard|{id}/|DELETE|-|암기 카드 삭제|O|
-|memorycard|subject/|GET|subject.html|암기 카드 주제 리스트 조회|O|
-|memorycard|subject/|POST|-|암기 카드 주제 리스트 생성|O|
-|memorycard|subject/{id}/|GET|-|암기 카드 주제 상세 조회|O|
-|memorycard|subject/{id}/|DELETE|-|암기 카드 주제 삭제|O|
+|App|URL|HTTP Method|Note|Login|
+|:-:|:-|:-:|:-|:-|
+|memorycard|/|GET|암기 카드 전체 리스트 조회|O|
+|memorycard|/|POST|암기 카드 생성|O|
+|memorycard|{id}/|GET|암기 카드 상세 내역 조회|O|
+|memorycard|{id}/|PATCH|암기 카드 수정|O|
+|memorycard|{id}/|DELETE|암기 카드 삭제|O|
+|memorycard|subject/|GET|암기 카드 주제 리스트 조회|O|
+|memorycard|subject/|POST|암기 카드 주제 리스트 생성|O|
+|memorycard|subject/{id}/|GET|암기 카드 주제 상세 조회|O|
+|memorycard|subject/{id}/|DELETE|암기 카드 주제 삭제|O|
 
 ### 3.3 개발 일정
 
@@ -231,7 +240,7 @@ PW : testpw581
     
 <br>
 
-<img width="800" alt="architecture" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/75262393-7a93-4a04-b5b9-cc5c9c5f062e"><br>
+<img width="800" alt="architecture" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/30d9d1da-071c-439e-b856-4e981e26c099"><br>
     - 배포 아키텍처 구성도<br>
 <br>
 </div>
@@ -257,9 +266,9 @@ PW : testpw581
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/89a77b6d-f82e-48c0-ba37-bcc8aeadb595">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/42412224-1ca5-4406-9472-42936bdff11c">|
 |11. 스터디 상세 페이지(스터디그룹장)|12. 스터디 수정 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e51a18ba-0ac0-4cd3-818a-a25e88708485">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/cfc635df-5632-4ed0-bbef-408c90f0151c">|
-|13. 실시간 채팅 페이지|14. 암기 카드 목록 페이지(주제 X)|
+|13. 실시간 채팅 페이지|14. 암기 카드 주 목록 페이지(주제 X)|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/879141ba-c9a0-4506-b47c-74fcb5bd7e22">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e628d570-9aa1-4254-a244-073c728a671d">|
-|15. 암기 카드 목록 페이지(주제 O)|16. 암기 카드 주제 작성 페이지|
+|15. 암기 카드 주제 목록 페이지(주제 O)|16. 암기 카드 주제 작성 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/4cef97d5-1c18-4346-832b-1c132d554c23">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/007bd1fb-b4fe-4eaa-9332-9e1d4c0c533c">|
 |17. 암기 카드 목록 페이지(카드 X)|18. 암기 카드 목록 페이지(카드  O)|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e6d4f893-bf70-4caa-966d-3e5e3cf260fb">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/faebc0cc-ff9d-405c-8b71-a4a7374b96ba">|
@@ -289,9 +298,9 @@ PW : testpw581
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f232f791-d944-433f-9561-6fa40a5a495e">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/a327ce60-4626-49f0-9b1b-073f5939cf55">|
 |11. 스터디 상세 페이지(스터디그룹장)|12. 스터디 수정 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/6eabc0eb-ea1f-42ba-b16c-032d127bf0d2">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/eb6b62ff-ccf9-42a9-9d78-41fa50ec21d5">|
-|13. 실시간 채팅 페이지|14. 암기 카드 목록 페이지(주제 X)|
+|13. 실시간 채팅 페이지|14. 암기 카드 주제 목록 페이지(주제 X)|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/5fb1456b-e096-48e3-9f4d-916b5243e3b3">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/bb2967f4-959c-4b52-95f6-f51db8c23f62">|
-|15. 암기 카드 목록 페이지(주제 O)|16. 암기 카드 주제 작성 페이지|
+|15. 암기 카드 주제 목록 페이지(주제 O)|16. 암기 카드 주제 작성 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/133d40d5-7e6c-4bec-aa73-ff1fb4b04146">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/f9cf2e94-ea1a-4161-ae3d-d01851c7cece">|
 |17. 암기 카드 목록 페이지(카드 X)|18. 암기 카드 목록 페이지(카드  O)|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/7633979c-8a92-4ced-a20c-65e7f8ee5e33">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/715b28e1-79ad-4b17-afed-6bbb7bc40c95">|
@@ -806,3 +815,26 @@ JWT_AUTH_HTTPONLY를 True로 설정하면 refresh_token이 필요한 경우 refr
 <br>
 
 ## 9. 프로젝트 소감(어려웠던 점 & 배운 점)
+
+<table>
+  <tr>
+    <th>profile</th>
+    <th>message</th>
+  </tr>
+  <tr>
+    <td><div align="center"><img src="https://github.com/Quartett/StudyUs-BE/assets/142385654/c0ff7054-39b1-42e5-a996-27471d41540d" width="200px"/><br>남영훈</div></td>
+    <td width="800px">같은 기술 스택을 사용하는 팀 프로젝트는 개발 경력에 있어 처음이라 논의한다는 거 자체가 어색했습니다. 각자 파이썬과 장고를 어느정도까지 이해하고 있는지 잘 모르는 상태였기에 어느 수준까지 개발을 할 수 있을지 고민이 많았습니다. 프로젝트 완성이라는 하나의 목표만 생각하고 진행하기로 마음 먹고, 팀원들의 적극적인 커뮤니케이션을 통해 서로 원하는 바를 잘 끌어낼 수 있도록 노력하였습니다. 그 결과 서로 의견들을 주고 받고 코드를 공유하며 많은 성장을 이루어냈다고 생각합니다. 중간중간 기획적으로 생각하지 못했던 부분들이 발생하여 고민거리가 생겼지만 그때마다 팀원들의 적극적인 참여로 인해 잘 극복해냈다고 생각합니다. 저의 말 한마디 한마디에 담긴 의미와 의도들을 파악해서 잘 따라오려고 노력해준 팀원들에게 감사드리고, 저 또한 팀원들의 태도와 질문들로 인해 적극적으로 피드백을 드리면서 한번 더 찾아보고 애매하게 생각했던 부분들에 확신이 생김으로서 좋은 성장 시간이 되었습니다.</td>
+  </tr>
+  <tr>
+    <td><div align="center"><img src="https://github.com/Quartett/StudyUs-BE/assets/142385654/8733be77-4d9c-42a1-a946-320c8644d785" width="200px"/><br>오정배</div></td>
+    <td width="800px">오르미 3기의 마지막을 장식하는 이번 프로젝트는 제 첫 팀 프로젝트였기에 그 어느 때보다 긴장되는 도전이었습니다. 팀장으로서 무거운 책임감을 안고 프로젝트를 이끌어야 했는데, 다행히도 팀원 분들의 적극적인 참여와 협력 덕분에 성공적으로 마무리할 수 있었습니다. 팀 프로젝트는 기획부터 시작해 컨벤션 설정, 이슈 해결, UI 설계 등 모든 과정에서 원활한 커뮤니케이션이 필수적이었고, 이 과정 속에서 우리 모두의 성장이 이루어졌다고 확신합니다. 아직 배울 것이 많지만, 묵묵히 함께해주시고 힘을 실어준 팀원분들께 진심으로 감사의 마음을 전합니다.</td>
+  </tr>
+    <tr>
+    <td><div align="center"><img src="https://github.com/Quartett/StudyUs-BE/assets/142385654/cc5a726d-b311-41cc-948c-3d82bd833b99" width="200px"/><br>윤재우</div></td>
+    <td width="800px">이번 프로젝트는 정말 많은 걸 배워가는 기회였다고 생각합니다. Upload files만 사용할 줄 알던 저에게 GitHub에 친숙해지며, 팀이 구성되어 운영, 협업하는 방법. 그리고 강의로 소화했다고 생각한 코드들을 아직 이해하지 못한 것을 인지하고 미숙하다는 것을 알게 되었습니다. 이에 따라 초반에 많이 방황했지만, 팀에서 이끌어 주셔서 이탈하는 일 없이 완주할 수 있다고 생각합니다. 잘못된 로직이나 오류들을 공유하여 팀원분들의 생각과 해결 방법을 알고 시야가 확장되는 경험을 하면서 자신의 문제점을 발견하고 자신이 좀 더 적극적으로 프로젝트에 접근해야 함을 느끼게 되었습니다.</td>
+  </tr>
+    <tr>
+    <td><div align="center"><img src="https://github.com/Quartett/StudyUs-BE/assets/142385654/738505b1-7dd8-4fd9-8cff-cc9218c950a1" width="200px"/><br>이수민</div></td>
+    <td width="800px">이번 프로젝트는 팀프로젝트였기에 협업을 위한 컨벤션 작성, 역할 나누기, Github Desktop 사용 등 이전에 경험해보지못한 많은 것들을 경험해 볼 수 있었습니다. 컨벤션, Github Desktop, PR 등 처음에는 어색했지만 모르는 부분은 물어보면 친절하게 알려주셨기에 어려움없이 프로젝트를 진행할 수 있었습니다. 또한 개발 중 에러를 만나 해결을 오랫동안 못하거나 어떻게 진행해야할지 모를 때에는 공유할 수 있는 팀원이 있었고 함께 찾아보거나 팀원이 알고있는 해결방법을 통해서 혼자서 했을 때보다 더 수월하게 해결할 수 있었습니다. 또한 팀원의 코드를 통해서 테스트코드, 스웨거 등 익숙하지않은 DRF에 이전보다 더 알아갈 수 있었습니다.</td>
+  </tr>
+</table>
