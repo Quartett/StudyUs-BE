@@ -332,7 +332,7 @@
 ### 6.1. APP : accounts
 #### 6.1.1. 회원 가입 시 이메일을 입력받고, 해당 이메일로 인증 메일을 받아 메일 내 링크 클릭 시 회원가입이 완료됨
 - User 커스텀 모델 및 setting을 통해서 username을 사용하지 않고, email을 사용하였음.
-    ```python
+    <!-- ```python
     # accounts/models.py
     class StudyUsUser(AbstractBaseUser):
     ...생략...
@@ -354,11 +354,11 @@
     ACCOUNT_USERNAME_REQUIRED = False
     ACCOUNT_USER_MODEL_USERNAME_FIELD = None # 사용자 이름 필드 지정
     ...생략...
-    ```
+    ``` -->
     #### [⬆️ accounts/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/models.py#L6C1-L64C38)
     <br>
 - 이메일 인증의 경우 settings에서 all_auth 설정 및 view에서 ConfirmEmailView를 통해 구현하였음.
-    ```python
+    <!-- ```python
     # settings.py
     ...생략...
     EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
@@ -375,11 +375,11 @@
     ACCOUNT_EMAIL_CONFIRMATION_EXPIRE_DAYS = 1
     ACCOUNT_EMAIL_SUBJECT_PREFIX = '[studyus]'
     ...생략...
-    ```
+    ``` -->
     #### [⬆️ settings.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/studyus/settings.py#L234C1-L247C43)
     <br>
     
-    ```python
+    <!-- ```python
     # accounts/views.py
     class ConfirmEmailView(APIView):
     ...생략...
@@ -400,11 +400,11 @@
                 return render(self.request, 'account/email/login_fail.html')# 인증실패
         return email_confirmation
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ accounts/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/views.py#L18C1-L43C1)
     <br>
 - urls.py에서 repath와 정규 표현식을 통해 이메일 인증 key를 받는 url을 작성하였음.
-    ```python
+    <!-- ```python
     accounts/urls.py
     urlpatterns = [
         ...생략...
@@ -412,27 +412,27 @@
         re_path(r'^account-confirm-email/(?P<key>[-:\w]+)/$', ConfirmEmailView.as_view(), name='account_confirm_email'),
         ...생략...
     ]
-    ```
+    ``` -->
     #### [⬆️ accounts/urls.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/urls.py#L11C1-L12C117)
     <br>
   
 ### 6.1.2. 인증 메일을 받지 못하였을 경우 재발송 버튼을 통해 인증 메일을 다시 요청하는 것이 가능
 - urls.py에서 dj_rest_auth.registration의 기본 기능을 사용하여 인증 메일 재발송을 구현하였음.
-    ```python
+    <!-- ```python
     # accounts/urls.py
     urlpatterns = [
         ...생략...
         path('account/', include('dj_rest_auth.registration.urls')),
         ...생략...
     ]
-    ```
+    ``` -->
     #### [⬆️ accounts/urls.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/accounts/urls.py#L7C5-L7C65)
     <br>
   
 ### 6.2. APP : study
 #### 6.2.1. 스터디 그룹에 가입하고 싶을 경우 기존 스터디 그룹에서 가입 가능함
 - models.py에서 max_members 필드를 작성하여 최대 인원을 정하고, views.py에서 JoinMemberView에서 post 요청이 들어왔을 때 현재 스터디 그룹의 멤버 수를 확인하고 max_members를 초과하면 가입을 못하고, 그보다 적을 경우 요청한 유저를 해당 그룹에 작성합니다.
-    ```python
+    <!-- ```python
     # study/models.py
     class StudyGroup(models.Model):
         ...생략...
@@ -444,11 +444,9 @@
         study_group = models.ForeignKey(StudyGroup, on_delete=models.CASCADE, related_name='study_group')
         role = models.IntegerField(default=0)
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ study/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/models.py#L10C1-L61C73)
-    <br>
-    
-    ```python
+    <!-- ```python
     # study/views.py
     class JoinMemberView(views.APIView):
         ...생략...
@@ -462,13 +460,13 @@
                     return response.Response({'message': '멤버 수가 가득 찼습니다.'}, status=status.HTTP_400_BAD_REQUEST)
                 member, created = StudyMember.objects.get_or_create(study_group=study_group, user=request.user, role=role)
                 ...생략...
-    ```
+    ``` -->
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L143C1-L167C69)
     <br>
 
 #### 6.2.2. 스터디 그룹을 생성하고 싶을 경우 필요한 정보 (스터디 그룹 명, 카테고리, 난이도, 일정 등)을 입력 받아 생성
 - models.py에서 StudyGroup에 작성한 필드를 입력 받아 views.py의 StudygroupCreateView를 통해 post 요청이 들어오면 생성이 됩니다.
-    ```python
+    <!-- ```python
     # study/models.py
     class Category(models.Model):
         category_name = models.CharField()
@@ -491,11 +489,11 @@
         max_members = models.IntegerField()
         category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category', blank=True, null=True)
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ study/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/models.py#L10C1-L49C26)
     <br>
     
-    ```python
+    <!-- ```python
     class StudygroupCreateView(generics.CreateAPIView):
         queryset = StudyGroup.objects.all()
         serializer_class = StudyGroupSerializer
@@ -508,12 +506,12 @@
             serializer.save()
             ChatRoom.objects.create(study_group=serializer.instance)
             StudyMember.objects.create(user=self.request.user, study_group=serializer.instance, role=1)
-    ```
+    ``` -->
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L35C1-L50C100)
     <br>
 #### 6.2.3. 스터디 그룹의 멤버가 아니더라도 궁금한 것은 물어볼 수 있도록 그룹 내에서 댓글 작성이 가능합니다.
 - views의 CommentCreateView를 통해 댓글을 작성하며 permission을 IsAuthenticated를 적용하여 로그인한 유저라면 댓글 작성이 가능하도록 하였습니다.
-    ```python
+    <!-- ```python
     class CommentCreateView(generics.CreateAPIView):
         queryset = Comment.objects.all()
         serializer_class = CommentSerializer
@@ -521,23 +519,23 @@
     
         def perform_create(self, serializer):
             serializer.save(author=self.request.user)
-    ```
+    ``` -->
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/a4c5149aac0380d89d73febc7d3c1014239aad73/study/views.py#L99C1-L106C1)
     <br>
 #### 6.2.4. 스터디 그룹을 생성한 그룹장일 경우에만 그룹 정보 수정이 가능합니다.
 - views의 StudygroupUpdateAPIView를 통해서 수정하며, permission을 LeaderOnly로 적용하였습니다.
-    ```python
+    <!-- ```python
     # study/views.py
     class StudygroupUpdateAPIView(generics.UpdateAPIView):
         queryset = StudyGroup.objects.all()
         serializer_class = StudyGroupSerializer
         permission_classes = [LeaderOnly]
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/3c09f74fcd957792ae28fcacc9178569835bcb41/study/views.py#L65C1-L81C67)
     <br>
 - LeaderOnly는 요청의 종류에 따라 스터디그룹의 멤버에게만 권한을 줄지, 스터디 그룹장에게만 권한을 줄지 설정하는 클래스입니다.
-    ```python
+    <!-- ```python
     # study/permissions.py
     class LeaderOnly(permissions.BasePermission):
     
@@ -547,7 +545,7 @@
             return StudyMember.objects.filter(study_group=study_group, user=request.user).exists()
         return StudyMember.objects.filter(study_group=study_group, user=request.user, role=1).exists()
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ study/permissions.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/3c09f74fcd957792ae28fcacc9178569835bcb41/study/permissions.py#L5C1-L26C20)
     <br>
 
@@ -555,7 +553,7 @@
 
 #### 6.3.1. 로그인한 사용자 별로 암기용 플래시 카드를 주제 별로 작성 및 실헹하여 암기 공부에 도움을 받을 수 있습니다.
 - models.py에 Subject와 MemoryCard를 작성하고 1:N 관계로 적용함(ForiegnKey)으로써 하나의 Subject가 여러개의 MemoryCard를 가질 수 있도록 하였습니다.
-    ```python
+    <!-- ```python
     # memorycard/models.py
     class Subject(models.Model):
         user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -566,11 +564,11 @@
         ...생략...
         subject = models.ForeignKey(Subject, on_delete=models.CASCADE)
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ memorycard/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/579f4dc3e8163fc1185c94b4ed382050cb2517fc/memorycard/models.py#L6C1-L29C27)
   <br>
 - 단순한 CRUD 기능만 빠르게 구현하기 위해서 views.py에서는 ViewSet을 사용하여 Subject와 Memorycard의 CRUD를 구현하였습니다.
-    ```python
+    <!-- ```python
     class SubjectViewSet(ModelViewSet):
         queryset = Subject.objects.all()
         serializer_class = SubjectSerializer
@@ -582,7 +580,7 @@
         serializer_class = MemoryCardSerailizer
         permission_classes = [IsAuthenticated, IsOwnerOrReadOnly]
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ memorycard/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/579f4dc3e8163fc1185c94b4ed382050cb2517fc/memorycard/views.py#L37C1-L126C30)
 <br>
 
@@ -591,9 +589,12 @@
 
 #### 7.1.1. 스터디 그룹 내에서 멤버들끼리 실시간 채팅이 가능하며, 기존 채팅 내역 조회가 가능합니다.
 - Django Channels 라이브러리를 사용하여 실시간 채팅을 구현하였습니다.
-- consumers.py에 Django Channels 라이브러리의 AsyncWebsocketConsumer를 상속받아 ChatConsumer 클래스를 작성하였으며, 이는 웹소켓 연결, 메시지 수신 및 발신을 비동기적으로 처리합니다.
-- 웹소켓 연결을 담당하는 코드입니다. ⤵️
-    ```python
+- consumers.py에 Django Channels 라이브러리의 AsyncWebsocketConsumer를 상속받아  ChatConsumer 클래스를 작성하였습니다
+- 이는 웹소켓 연결, 메시지 수신 및 발신을 비동기적으로 처리합니다.
+- 웹소켓 연결을 위해 connect와 disconnect, receive 함수를 구현하였습니다.
+<!-- 
+- 웹소켓 연결을 담당하는 코드입니다.
+    python
     # chat/consumers.py
     class ChatConsumer(AsyncWebsocketConsumer):
         async def connect(self):
@@ -613,7 +614,7 @@
             await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
         ...생략...
     ```
-- 채팅 수신 및 발신을 담당하는 코드입니다. ⤵️
+- 채팅 수신 및 발신을 담당하는 코드입니다.
     ```python
     # chat/consumers.py
     class ChatConsumer(AsyncWebsocketConsumer)
@@ -639,7 +640,7 @@
             }))
         ...생략...
     ```
-- 채팅 내역을 저장하는 것을 담당하는 코드입니다. ⤵️
+- 채팅 내역을 저장하는 것을 담당하는 코드입니다.
     ```python
     # chat/consumers.py
     class ChatConsumer(AsyncWebsocketConsumer)
@@ -653,24 +654,26 @@
             chat_history = Chat.objects.filter(chat_room__id=self.room_name)
             return list(chat_history)
         ...생략...
-    ```
-    #### [⬆️ chat/consumers.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/579f4dc3e8163fc1185c94b4ed382050cb2517fc/chat/consumers.py#L10)
-    <br>
+    -->  
+    
+    
+#### [⬆️ chat/consumers.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/579f4dc3e8163fc1185c94b4ed382050cb2517fc/chat/consumers.py#L10)
+<br>
     
 ### 7.2. APP : memorycard
 
 #### 7.2.1. 암기용 플래시 카드에 난이도와 북마크 기능을 추가하여 이를 통해 어려운 것만 별도로 학습할 수 있습니다.
 - models.py의 MemoryCard 모델에 bookmark를 추가하였습니다.
-    ```python
+    <!-- ```python
     class MemoryCard(models.Model):
         ...생략...
         bookmark = models.BooleanField(default=False)
         ...생략...
-    ```
+    ``` -->
     #### [⬆️ memorycard/models.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/579f4dc3e8163fc1185c94b4ed382050cb2517fc/memorycard/models.py#L14C1-L29C27)
     <br>
 - views.py의 get_queryset 설정을 통해 주제와 북마크 기능에 따라 필터링 할 수 있도록 하였습니다.
-    ```python
+    <!-- ```python
     class MemoryCardViewSet(ModelViewSet):
         ...생략...
         def get_queryset(self):
@@ -682,7 +685,7 @@
             elif subject and bookmark == "off":
                 return self.queryset.filter(subject__user=self.request.user, subject__id=subject)
             return self.queryset.filter(subject__user=self.request.user)
-    ```
+    ``` -->
     #### [⬆️ memorycard/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/579f4dc3e8163fc1185c94b4ed382050cb2517fc/memorycard/views.py#L96C1-L126C30)
     <br>
 
