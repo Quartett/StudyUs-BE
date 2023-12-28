@@ -5,7 +5,7 @@
 |Name|남영훈|오정배|윤재우|이수민|
 |:-:|:-:|:-:|:-:|:-:|
 | Profile  |<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/c0ff7054-39b1-42e5-a996-27471d41540d">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/8733be77-4d9c-42a1-a946-320c8644d785">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/cc5a726d-b311-41cc-948c-3d82bd833b99">|<img width="150px" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/738505b1-7dd8-4fd9-8cff-cc9218c950a1">|
-| Position |Architect<br>Frontend Develop<br>Backend Develop<br>CICD|팀장<br>Frontend Develop<br>Backend Develop<br>UIUX|Frontend Develop<br>Backend Develop<br>기능 요구사항 분석|Frontend Develop<br>Backend Develop<br>ERD, API 명세서 작성<br>UIUX|
+| Position |Architect<br>Frontend Develop<br>Backend Develop<br>CI/CD|팀장<br>Frontend Develop<br>Backend Develop<br>UI/UX|Frontend Develop<br>Backend Develop<br>기능 요구사항 분석|Frontend Develop<br>Backend Develop<br>ERD, API 명세서 작성<br>UI/UX|
 | GitHub |[Eric](https://github.com/Nam-Younghoon)|[OH_JUNGBAE](https://github.com/Alexmint001)|[bardnia](https://github.com/bardnia)|[su2minig](https://github.com/su2minig)|
 
 ## 목차
@@ -266,7 +266,7 @@
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/89a77b6d-f82e-48c0-ba37-bcc8aeadb595">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/42412224-1ca5-4406-9472-42936bdff11c">|
 |11. 스터디 상세 페이지(스터디그룹장)|12. 스터디 수정 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e51a18ba-0ac0-4cd3-818a-a25e88708485">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/cfc635df-5632-4ed0-bbef-408c90f0151c">|
-|13. 실시간 채팅 페이지|14. 암기 카드 주 목록 페이지(주제 X)|
+|13. 실시간 채팅 페이지|14. 암기 카드 주제 목록 페이지(주제 X)|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/879141ba-c9a0-4506-b47c-74fcb5bd7e22">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e628d570-9aa1-4254-a244-073c728a671d">|
 |15. 암기 카드 주제 목록 페이지(주제 O)|16. 암기 카드 주제 작성 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/4cef97d5-1c18-4346-832b-1c132d554c23">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/007bd1fb-b4fe-4eaa-9332-9e1d4c0c533c">|
@@ -274,7 +274,7 @@
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/e6d4f893-bf70-4caa-966d-3e5e3cf260fb">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/faebc0cc-ff9d-405c-8b71-a4a7374b96ba">|
 |19. 암기 카드 작성 페이지|20. 암기 카드 수정 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/03923f8b-06d9-404f-880e-209f5fbd4b53">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/a9d9fba9-ffe0-4f2c-a788-27f5bc017284">|
-|21. 암기 카드 재생 페이지|22. 암기 카드 중요 표시 페이지|
+|21. 암기 카드 재생 페이지|22. 암기 카드 북마크 페이지|
 
 </div>
 
@@ -306,7 +306,7 @@
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/7633979c-8a92-4ced-a20c-65e7f8ee5e33">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/715b28e1-79ad-4b17-afed-6bbb7bc40c95">|
 |19. 암기 카드 작성 페이지|20. 암기 카드 수정 페이지|
 |<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/2bdf0979-3569-4120-9ebd-daa1ffc478ff">|<img width="700px" alt="image" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/dbc71440-a828-412b-8c60-255f625fea22">|
-|21. 암기 카드 재생 페이지|22. 암기 카드 중요 표시 페이지|
+|21. 암기 카드 재생 페이지|22. 암기 카드 북마크 페이지|
 
 </div>
 
@@ -536,7 +536,7 @@
     ```
     #### [⬆️ study/views.py 소스 코드 링크](https://github.com/Quartett/StudyUs-BE/blob/3c09f74fcd957792ae28fcacc9178569835bcb41/study/views.py#L65C1-L81C67)
     <br>
-- LeaderOnly는 요청의 종류에 따라 스터디그룹의 일반 멤버에게만 권한을 줄지, 스터디 그룹장에게만 권한을 줄지 설정하는 클래스입니다.
+- LeaderOnly는 요청의 종류에 따라 스터디그룹의 멤버에게만 권한을 줄지, 스터디 그룹장에게만 권한을 줄지 설정하는 클래스입니다.
     ```python
     # study/permissions.py
     class LeaderOnly(permissions.BasePermission):
