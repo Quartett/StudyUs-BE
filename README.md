@@ -240,7 +240,7 @@
     
 <br>
 
-<img width="800" alt="architecture" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/30d9d1da-071c-439e-b856-4e981e26c099"><br>
+<img width="800" alt="architecture" src="https://github.com/Quartett/StudyUs-BE/assets/142385654/bb9b5232-c3c3-4afd-8b7f-b53faa7b15cc"><br>
     - 배포 아키텍처 구성도<br>
 <br>
 </div>
